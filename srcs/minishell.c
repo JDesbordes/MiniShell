@@ -6,34 +6,70 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/11 21:07:51 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/12 03:21:18 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		iswhitespace(char c)
+int		ft_manager(char *com, char *args)
 {
-	
+	if (!com)
+		return (0);
+	if (!ft_strncmp(com, "pwd", 4))
+		return (ft_printf("%s\n", getcwd(NULL, _POSIX_PATH_MAX)));
+	else if (!ft_strncmp(com, "echo", 5))
+		return (ft_echo(args));
+	return (0);
 }
 
-void	iscommand(char *line)
+char	*ft_strndup(char *src, int y)
 {
-	char	*str;
 	int		i;
+	char	*src2;
 
-	str = ft_strtrimr(line, " \t\b\r\v\f");
+	i = 0;
+	while (src[i] != '\0' && i < y)
+		i++;
+	if (!(src2 = (char *)malloc(sizeof(char) * (i + 1))))
+		return (NULL);
+	i = 0;
+	while (src[i] && i < y)
+	{
+		src2[i] = src[i];
+		i++;
+	}
+	src2[i] = '\0';
+	return (src2);
+}
+
+int		iscommand(char *line)
+{
+	char	*com;
+	char	*args;
+	char	*join;
+	int i;
+
+	com = ft_strtrimr(line, " \t\b\r\v\f");
+	join = ft_strdup("");
 	free(line);
 	i = 0;
-	if (!str)
-		return ;
-	if (!ft_strncmp(str + i, "pwd", 3))
-		ft_printf("%s\n", getcwd(NULL, _POSIX_PATH_MAX));
-	else if (!ft_strncmp(str + i, "echo", 4) && (str[i+4] == 0 || str[i+4] == ';' || str[i+4] == ' '))
-		ft_echo(str, &i);
-	else
-		ft_printf("\033[1;31munknown command %s\033[0m\n",ft_split(str," \t\b\r\v\f")[0]);
+	
+	if(ft_setup(com, &join, args, &i))
+	{
+		free(com);
+		return(0);
+	}
+	args = ft_strdup(com + i);
+	free(com);
+	if(!ft_manager(join, args))
+		ft_printf("\033[1;31munknown command %s\033[0m\n", join);
+	while(1)
+	{
+		
+	}
+	return (0);
 }
 
 char	*findpath(void)
@@ -43,7 +79,8 @@ char	*findpath(void)
 	int		i;
 
 	i = -1;
-	path = ft_split(getcwd(NULL, _POSIX_PATH_MAX), "/");
+	path = ft_split(buf = getcwd(NULL, _POSIX_PATH_MAX), "/");
+	free(buf);
 	while (path[++i])
 		if (path[i + 1])
 			free(path[i]);
@@ -59,7 +96,6 @@ int		minishell(int fd)
 	char	*buf;
 	int		i;
 
-	buf = malloc(sizeof(char) * _POSIX_PATH_MAX);
 	ft_printf("\033[0;32mWELCOME TO MINISHELL\033[0m\n");
 	i = -1;
 	if (!fd)

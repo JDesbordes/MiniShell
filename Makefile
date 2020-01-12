@@ -6,7 +6,7 @@
 #    By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/07 15:34:08 by jdesbord     #+#   ##    ##    #+#        #
-#    Updated: 2020/01/11 04:20:44 by jdesbord    ###    #+. /#+    ###.fr      #
+#    Updated: 2020/01/12 02:12:50 by jdesbord    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -23,7 +23,7 @@ LIBS		=			Libftprintf/libftprintf.a
 
 SRC_PATH	=			srcs
 
-SRCS_NAME	=			minishell.c ft_echo.c
+SRCS_NAME	=			minishell.c ft_echo.c ft_setup.c
 
 OBJS        =			${SRCS:.c=.o}
 
@@ -31,7 +31,7 @@ NAME		=			minishell
 
 RM			=			rm -f
 
-FLAGS		=			 -g3 -fsanitize=address
+FLAGS		=			 
 
 SRCS		=			$(addprefix $(SRC_PATH)/,$(SRCS_NAME))
 

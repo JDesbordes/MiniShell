@@ -6,38 +6,44 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 03:19:38 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/11 18:39:04 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/12 03:34:53 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_echo(char *str, int *i)
+int		ft_echo(char *args)
 {
-	/*char	c;
+	int		i;
 	char	*temp;
-	int		j;
-
-	c = 'c';
-	j = *i + 4;
-	str = ft_strtrimr(str + j, " \t\b\r\v\f\"");
-	if (str[*i] == '-')
-		if (str[++(*i)] == 'n')
+	char 	*join;
+	
+	temp = ft_strtrimr(args, " \t\b\r\v\f");
+	free(args);
+	args = temp;
+	join = ft_strdup("");
+	i = 0;
+	while(args[i] && args[i] != ';')
+	{
+		if (args[i] == '\"')
 		{
-			c = 'n';
-			temp = str;
-			str = ft_strtrimr(str + 2, " \t\b\r\v\f\"");
+			if (!invertedcoma(args, &i, &join, temp))
+				return (1);
+		}
+		else if (args[i] == '\'')
+		{
+			if (!doublecoma(args, &i, &join, temp))
+				return (1);
+		}
+		else
+		{
+			temp = ft_strndup(args + i, 1);
+			join = ft_strjoinrem(join, temp);
 			free(temp);
 		}
-	while (str[*i] && str[*i] != ';')
-	{
-		if (str[*i] != '\"')
-			ft_printf("%c",str[*i]);
-		*i += 1;
+		i++;
 	}
-	free(str);
-	if (c != 'n')
-		ft_printf("\n");
-	return(str);*/
+	ft_printf("%s", join);
+	return (1);
 }
