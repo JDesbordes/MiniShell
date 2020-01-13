@@ -6,7 +6,7 @@
 #    By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/07 15:34:08 by jdesbord     #+#   ##    ##    #+#        #
-#    Updated: 2020/01/13 00:03:00 by jdesbord    ###    #+. /#+    ###.fr      #
+#    Updated: 2020/01/13 07:32:05 by jdesbord    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -23,7 +23,7 @@ LIBS		=			Libftprintf/libftprintf.a
 
 SRC_PATH	=			srcs
 
-SRCS_NAME	=			minishell.c ft_echo.c ft_setup.c ft_input.c ft_cd.c ft_env.c
+SRCS_NAME	=			minishell.c ft_echo.c ft_setup.c ft_input.c ft_cd.c ft_env.c ft_parseargs.c
 
 OBJS        =			${SRCS:.c=.o}
 
