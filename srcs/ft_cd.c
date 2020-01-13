@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line.h                                  .::    .:/ .      .::   */
+/*   ft_cd.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/10/23 10:14:30 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/13 01:31:19 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Created: 2020/01/12 03:53:30 by jdesbord     #+#   ##    ##    #+#       */
+/*   Updated: 2020/01/12 21:25:34 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "../includes/minishell.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <stdlib.h>
-
-# define BUFFER_SIZE 64
-
-char		*ft_strchr2(const char *s, int c);
-char		*ft_strjoinrem(char const *s1, char const *s2);
-size_t		ft_strlen2(const char *str);
-char		*ft_strdup2(const char *src);
-char		*uptochar(char *leftover, int c, char **line);
-char		*nextend(char *leftover, int fd);
-int			get_next_line(int fd, char **line);
-
-#endif
+int		ft_cd(char *args, t_file *file)
+{
+	int		i;
+	char	*temp;
+	char 	*join;
+	
+	i = 0;
+	temp = ft_strtrimr(args, " \t\b\r\v\f");
+	free(args);
+	args = temp;
+	join = ft_strdup("");
+	if (ft_parse(args, &i, temp, &join))
+		return (1);
+	temp = ft_strtrimr(join, " \t\b\r\v\f");
+	chdir(temp);
+	file->pathend = findpath();
+	free(temp);
+	free(join);
+	if (args[i] == ';')
+		iscommand(args + i + 1, file);
+	return (1);
+}
