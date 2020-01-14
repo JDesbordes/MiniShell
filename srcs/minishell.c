@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/14 02:36:26 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 05:14:21 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,8 @@ int		ft_manager(char **args2, t_file *file)
 		return (ft_echo(args2));
 	else if (!ft_strncmp(args2[0], "cd", 3))
 		return (ft_cd(args2, file));
+	else if (!ft_strncmp(args2[0], "exit", 5))
+		return (ft_exit(args2, file));
 	else
 		return (ft_env(args2[0], args2, file));
 	return (0);

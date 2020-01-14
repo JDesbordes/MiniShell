@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 00:32:07 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/14 02:38:12 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 05:14:37 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,5 +41,6 @@ int		ft_env(char *com, char **args, t_file *file);
 int		ft_envsetup(char **envp, t_file *file);
 char	**ft_getargs(char *args);
 char	**semicolon(char **args2, int *i);
+int		ft_exit(char **args2, t_file *file);
 
 #endif

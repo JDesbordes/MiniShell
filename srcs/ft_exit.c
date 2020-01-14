@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_cd.c                                          .::    .:/ .      .::   */
+/*   ft_exit.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/12 03:53:30 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/14 03:19:09 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Created: 2020/01/14 05:10:04 by jdesbord     #+#   ##    ##    #+#       */
+/*   Updated: 2020/01/14 05:15:17 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_cd(char **args, t_file *file)
+int		ft_exit(char **args2, t_file *file)
 {
-	chdir(args[1]);
-	file->pathend = findpath();
-	return (1);
+	ft_printf("\033[2;32mEXIT\n\033[1m");
+	exit(EXIT_SUCCESS);
+	return (0);
 }
