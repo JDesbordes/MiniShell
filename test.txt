@@ -1,2 +1,2 @@
-""e"c"h'''o' b"le" 'EFF' "wd'wwwf" "wfwev" '''wef'
-
+echo ble ; echo blu ; never ; stop ; ls ; the ; fucking
+""'' ""e"c"h''""'o' b"le" 'EFF' "wd'wwwf" "wfwev" '''wef' ; ""e"c"h''""'o'      b"le " 'EF  F' "  wd'wwwf" "wfwev" '    ''wef'

@@ -6,29 +6,28 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/13 06:45:15 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 02:36:26 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_manager(char *com, char *args, t_file *file)
+int		ft_manager(char **args2, t_file *file)
 {
-	char **args2;
+	int i;
 
-	int i = 0;
-	args2 = ft_getargs(args);
-	if (!com || !com[0])
+	i = 0;
+	if (!args2 || !args2[0])
 		return (1);
-	if (!ft_strncmp(com, "pwd", 4))
+	if (!ft_strncmp(args2[0], "pwd", 4))
 		return (ft_printf("%s\n", getcwd(NULL, _POSIX_PATH_MAX)));
-	else if (!ft_strncmp(com, "echo", 5))
+	else if (!ft_strncmp(args2[0], "echo", 5))
 		return (ft_echo(args2));
-	else if (!ft_strncmp(com, "cd", 3))
+	else if (!ft_strncmp(args2[0], "cd", 3))
 		return (ft_cd(args2, file));
 	else
-		return (ft_env(com, args2, file));
+		return (ft_env(args2[0], args2, file));
 	return (0);
 }
 
@@ -54,23 +53,20 @@ char	*ft_strndup(char *src, int y)
 
 int		iscommand(char *line, t_file *file)
 {
-	char	*com;
 	char	*args;
-	char	*join;
-	int i;
+	char	**args2;
+	char	**cutargs;
+	int		i;
 
-	com = ft_strtrimr(line, " \t\b\r\v\f");
-	join = ft_strdup("");
 	i = 0;
-	if(ft_setup(com, &join, args, &i))
-	{
-		free(com);
+	if(!(args2 = ft_getargs(line)))
 		return(0);
+	while ((cutargs = semicolon(args2, &i)))
+	{
+		if(!ft_manager(cutargs, file))
+			ft_printf("\033[1;31munknown command %s\033[0m\n", cutargs[0]);
+		free(cutargs);
 	}
-	args = ft_strdup(com);
-	free(com);
-	if(!ft_manager(join, args, file))
-		ft_printf("\033[1;31munknown command %s\033[0m\n", join);
 	return (0);
 }
 
@@ -110,8 +106,9 @@ int		minishell(int fd, char **envp)
 		iscommand(line, file);
 		if (!fd)
 			ft_printf("\033[01;33m%s->\033[0m", file->pathend);
-		free(line);
 	}
+	if (line[0])
+		iscommand(line, file);
 	if (!fd)
 		ft_printf("\033[2;32m\nEXIT\n\033[1m");
 	if (!fd)

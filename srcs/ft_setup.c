@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 23:58:49 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/12 03:40:43 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 02:07:22 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,12 +26,8 @@ int		invertedcoma(char *com, int *i, char **join, char *args)
 		return (0);
 	}
 	if (y > 1)
-	{
-		args = ft_strndup(com + *i + 1, y - 1);
-		*join = ft_strjoinrem(*join, args);
-	}
+		*join = ft_strndup(com + *i + 1, y - 1);
 	*i += y;
-	y == 1 ? 0 : free(args);
 	return (1);
 }
 
@@ -48,36 +44,30 @@ int		doublecoma(char *com, int *i, char **join, char *args)
 		return (0);
 	}
 	if (y > 1)
-	{
-		args = ft_strndup(com + *i + 1, y - 1);
-		*join = ft_strjoinrem(*join, args);
-	}
+		*join = ft_strndup(com + *i + 1, y - 1);
 	*i += y;
-	y == 1 ? 0 : free(args);
 	return (1);
 }
 
-int		ft_setup(char *com, char **join, char *args, int *i)
+char	**semicolon(char **args2, int *i)
 {
-    while (com[*i] && (com[*i] < 9 || com[*i] > 13) && com[*i] != ' ' && com[*i] != ';')
-	{
-		if (com[*i] == '\"')
-		{
-			if (!invertedcoma(com, i, join, args))
-				return (1);
-		}
-		else if (com[*i] == '\'')
-		{
-			if (!doublecoma(com, i, join, args))
-				return (1);
-		}
-		else
-		{
-			args = ft_strndup(com + *i, 1);
-			*join = ft_strjoinrem(*join, args);
-			free(args);
-		}
+	int j;
+	int y;
+	char **cutargs;
+
+	if (!args2[*i])
+		return (NULL);
+	j = *i;
+	while (args2[*i] && ft_strncmp(args2[*i], ";", 2))
 		*i += 1;
+	cutargs = ft_calloc(sizeof(char *), (*i - j + 1));
+	y = 0;
+	while (y < *i - j)
+	{
+		cutargs[y] = args2[j + y];
+		y++;
 	}
-    return (0);
+	if (args2[*i] && args2[*i][0] == ';')
+		*i += 1;
+	return(cutargs);
 }

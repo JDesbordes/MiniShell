@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/08 15:52:29 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/11 04:21:48 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/13 23:33:53 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ static int		getsize(char const *s1, char const *set, int option)
 				results[0]++;
 	}
 	results[1] = i - 1;
-	while (s1[--i])
+	while (s1[--i] && i > 0)
 	{
 		j = -1;
 		while (set[++j])

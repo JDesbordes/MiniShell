@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 03:53:30 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/13 06:13:34 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 02:56:28 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,23 +15,7 @@
 
 int		ft_cd(char **args, t_file *file)
 {
-	int		i;
-	char	*temp;
-	char 	*join;
-	
-	/*i = 0;
-	temp = ft_strtrimr(args, " \t\b\r\v\f");
-	free(args);
-	args = temp;
-	join = ft_strdup("");
-	if (ft_parse(args, &i, temp, &join))
-		return (1);
-	temp = ft_strtrimr(join, " \t\b\r\v\f");
-	chdir(temp);
+	chdir(args[1]);
 	file->pathend = findpath();
-	free(temp);
-	free(join);
-	if (args[i] == ';')
-		iscommand(args + i + 1, file);*/
 	return (1);
 }
