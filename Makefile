@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/07 15:34:08 by jdesbord     #+#   ##    ##    #+#        #
-#    Updated: 2020/01/14 05:14:49 by jdesbord    ###    #+. /#+    ###.fr      #
+#    Updated: 2020/01/16 04:52:59 by nepage-l    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -24,7 +24,7 @@ LIBS		=			Libftprintf/libftprintf.a
 SRC_PATH	=			srcs
 
 SRCS_NAME	=			minishell.c ft_echo.c ft_setup.c ft_input.c ft_cd.c\
-						ft_env.c ft_parseargs.c ft_exit.c
+						ft_env.c ft_parseargs.c ft_exit.c ft_varenv.c
 
 OBJS        =			${SRCS:.c=.o}
 

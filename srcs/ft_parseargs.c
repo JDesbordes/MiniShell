@@ -3,15 +3,37 @@
 /*                                                              /             */
 /*   ft_parseargs.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/13 07:31:13 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/14 01:20:48 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/16 05:15:35 by nepage-l    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void		ft_dollar(char **args2, t_file *file)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (args2[i])
+	{
+		if (args2[i][0] == '$')
+		{
+			tmp = ft_strdup2((char *)args2[i]);
+			free(args2);
+			while(file->env)
+			{
+				if (file->env->str)
+				{}
+			} 
+		}
+		i++;
+	}
+}
 
 int		nocoma(char *args, int *i, char **join, int *y)
 {
@@ -125,7 +147,7 @@ char		**ft_parse(char *args, char *temp, char **join)
 	return (args2);
 }
 
-char	**ft_getargs(char *args)
+char	**ft_getargs(char *args, t_file *file)
 {
 	char *temp;
 	char *join;
@@ -137,5 +159,6 @@ char	**ft_getargs(char *args)
 	args = temp;
 	args2 = ft_parse(args, temp, &join);
 	free(args);
+	ft_dollar(args2, file);
 	return(args2);
 }

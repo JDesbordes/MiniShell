@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   minishell.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/14 05:14:21 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/16 05:24:03 by nepage-l    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,9 @@ int		iscommand(char *line, t_file *file)
 	int		i;
 
 	i = 0;
-	if(!(args2 = ft_getargs(line)))
+	if(!(ft_varenv(line, file)))
+		return(0);
+	if(!(args2 = ft_getargs(line, file)))
 		return(0);
 	while ((cutargs = semicolon(args2, &i)))
 	{
@@ -97,6 +99,7 @@ int		minishell(int fd, char **envp)
 
 	i = -1;
 	file = malloc(sizeof(t_file) * 1);
+	file->env = malloc(sizeof(t_env) * 1);
 	ft_envsetup(envp, file);
 	if (!fd)
 	{
