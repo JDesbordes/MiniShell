@@ -6,7 +6,7 @@
 /*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/16 05:24:03 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/18 15:56:55 by nepage-l    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,9 +104,9 @@ int		minishell(int fd, char **envp)
 	if (!fd)
 	{
 		file->pathend = findpath();
-		ft_printf("\033[0;32mWELCOME TO MINISHELL\033[0m\n\033[01;33m%s->\033[0m", file->pathend);
+		ft_printf("\033[1;32mWELCOME TO MINISHELL\033[0m\n\033[01;33m%s->\033[0m", file->pathend);
 	}
-	while (ft_input() && get_next_line(fd, &line))
+	while (ft_input(file) && get_next_line(fd, &line))
 	{
 		iscommand(line, file);
 		if (!fd)

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_input.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 20:09:41 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/13 04:53:08 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/18 16:08:41 by nepage-l    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,14 +21,14 @@ void	ft_ctrlC(int i)
 void	ft_ctrlbslash(int i)
 {
 	signal(i, SIG_IGN);
-	ft_printf("CTRL-\\\n");
 }
 
-int		ft_input()
+int		ft_input(t_file *file)
 {
 	char c;
 	
 	signal(SIGINT, ft_ctrlC);
 	signal(SIGQUIT, ft_ctrlbslash);
+
 	return (1);
 }
