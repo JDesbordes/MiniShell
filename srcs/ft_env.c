@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_env.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 23:29:04 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/16 05:24:15 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/19 23:12:48 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,7 +79,7 @@ int		ft_envsetup(char **envp, t_file *file)
 	{
 		if (!ft_strncmp(envp[i], "PATH=", 5))
 		{
-			file->paths = ft_split(envp[i], ":");
+			file->paths = ft_split(envp[i] + 5, ":");
 			return (1);
 		}
 		i++;
