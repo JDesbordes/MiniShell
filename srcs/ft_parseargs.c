@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_parseargs.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/13 07:31:13 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/20 01:10:53 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/20 21:39:21 by nepage-l    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,21 +16,33 @@
 void		ft_dollar(char **args2, t_file *file)
 {
 	int		i;
+	int		check;
 	char	*tmp;
+	t_env	*tmpfile;
 
 	i = 0;
 	while (args2[i])
 	{
+		check = 1;
 		if (args2[i][0] == '$')
 		{
-			tmp = ft_strdup2((char *)args2[i]);
-			free(args2);
+			tmp = ft_substr(args2[i], 1, ft_strlen(args2[i]));
+			tmp = ft_strjoinrem(tmp, "="); 
+			free(args2[i]);
+			tmpfile = file->env;
 			while(file->env)
 			{
-				if (file->env->str)
-				{}
-			} 
+				if (!ft_strncmp(tmp, file->env->str, ft_strlen(tmp) + 1))
+				{
+					args2[i] = ft_strdup(file->env->content);
+					check = 0;
+				}
+				file->env = file->env->next;
+			}
+			check ? args2[i] = ft_strdup("") : 0;
+			file->env = tmpfile;
 		}
+
 		i++;
 	}
 }
@@ -48,7 +60,7 @@ int		nocoma(char *args, int *i, char **join, int *y)
 		*i += 1;
 	j = *i;
 	while (args[*i] && args[*i] != ' ' && (args[*i] < 9 || args[*i] > 13)
-		&& args[*i] != '\'' && args[*i] != '\"' && args[*i] != ';')
+			&& args[*i] != '\'' && args[*i] != '\"' && args[*i] != ';')
 	{
 		k++;
 		*i += 1;

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   minishell.h                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 00:32:07 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/20 01:01:38 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/20 21:04:12 by nepage-l    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,8 @@
 typedef struct		s_env
 {
 	char			*str;
-	struct s_evnie	*next;
+	char			*content;
+	struct s_env	*next;
 }					t_env;
 
 typedef struct		s_file
