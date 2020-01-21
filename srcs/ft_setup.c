@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 23:58:49 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/14 02:07:22 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/21 08:54:34 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,4 +70,30 @@ char	**semicolon(char **args2, int *i)
 	if (args2[*i] && args2[*i][0] == ';')
 		*i += 1;
 	return(cutargs);
+}
+
+int		nocoma(char *args, int *i, char **join, int *y)
+{
+	int k;
+	int j;
+
+	k = 0;
+	if (args[*i] && (args[*i] == ' ' || (args[*i] >= 9 && args[*i] <= 13)))
+		*y += 1;
+	*y == -1 ? *y += 1 : 0;
+	while (args[*i] && (args[*i] == ' ' || (args[*i] >= 9 && args[*i] <= 13)))
+		*i += 1;
+	j = *i;
+	while (args[*i] && args[*i] != ' ' && (args[*i] < 9 || args[*i] > 13)
+		&& args[*i] != '\'' && args[*i] != '\"' && args[*i] != ';')
+	{
+		k++;
+		*i += 1;
+	}
+	if (k >= 1)
+	{
+		*join = ft_strndup(args + j, k);
+		return (1);
+	}
+	return (0);
 }
