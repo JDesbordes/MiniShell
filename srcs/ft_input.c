@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_input.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 20:09:41 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/18 16:08:41 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/20 06:14:15 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 
 void	ft_ctrlC(int i)
 {
-	signal(i, SIG_IGN);
+	ft_printf("\n\033[01;33m%s->\033[0m", findpath());
 }
 
 void	ft_ctrlbslash(int i)

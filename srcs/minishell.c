@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   minishell.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/18 15:56:55 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/21 17:37:49 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,18 +18,19 @@ int		ft_manager(char **args2, t_file *file)
 	int i;
 
 	i = 0;
-	if (!args2 || !args2[0])
+	ft_varenv(args2, file, &i);
+	if (!args2 || !args2[i])
 		return (1);
-	if (!ft_strncmp(args2[0], "pwd", 4))
+	if (!ft_strncmp(args2[i], "pwd", 4))
 		return (ft_printf("%s\n", getcwd(NULL, _POSIX_PATH_MAX)));
-	else if (!ft_strncmp(args2[0], "echo", 5))
-		return (ft_echo(args2));
-	else if (!ft_strncmp(args2[0], "cd", 3))
+	else if (!ft_strncmp(args2[i], "echo", 5))
+		return (ft_echo(args2, i));
+	else if (!ft_strncmp(args2[i], "cd", 3))
 		return (ft_cd(args2, file));
-	else if (!ft_strncmp(args2[0], "exit", 5))
+	else if (!ft_strncmp(args2[i], "exit", 5))
 		return (ft_exit(args2, file));
 	else
-		return (ft_env(args2[0], args2, file));
+		return (ft_env(args2[i], args2, file));
 	return (0);
 }
 
@@ -61,16 +62,12 @@ int		iscommand(char *line, t_file *file)
 	int		i;
 
 	i = 0;
-	if(!(ft_varenv(line, file)))
-		return(0);
 	if(!(args2 = ft_getargs(line, file)))
 		return(0);
-	while ((cutargs = semicolon(args2, &i)))
-	{
-		if(!ft_manager(cutargs, file))
-			ft_printf("\033[1;31munknown command %s\033[0m\n", cutargs[0]);
-		free(cutargs);
-	}
+	if(!ft_manager(args2, file))
+		ft_printf("\033[1;31munknown command %s\033[0m\n", args2[0]);
+	if (F->sep == ';')
+		iscommand(F->args, file);
 	return (0);
 }
 
@@ -98,8 +95,8 @@ int		minishell(int fd, char **envp)
 	t_file	*file;
 
 	i = -1;
-	file = malloc(sizeof(t_file) * 1);
-	file->env = malloc(sizeof(t_env) * 1);
+	file = ft_calloc(sizeof(t_file) , 1);
+	file->env = ft_calloc(sizeof(t_env) , 1);
 	ft_envsetup(envp, file);
 	if (!fd)
 	{
@@ -115,7 +112,7 @@ int		minishell(int fd, char **envp)
 	if (line[0])
 		iscommand(line, file);
 	if (!fd)
-		ft_printf("\033[2;32m\nEXIT\n\033[1m");
+		ft_printf("\033[2;32m\nEXIT\n\033[0m");
 	if (!fd)
 		free(file->pathend);
 	return (0);

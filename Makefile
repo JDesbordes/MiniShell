@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/07 15:34:08 by jdesbord     #+#   ##    ##    #+#        #
-#    Updated: 2020/01/16 04:52:59 by nepage-l    ###    #+. /#+    ###.fr      #
+#    Updated: 2020/01/21 17:20:25 by jdesbord    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -17,14 +17,14 @@
 
 HEADER		=			includes/minishell.h
 
-LIB			=			libftprintf.a
+LIB			=			libftprintf.a libasm.a
 
-LIBS		=			Libftprintf/libftprintf.a
+LIBS		=			Libftprintf/libftprintf.a libasm/libasm.a
 
 SRC_PATH	=			srcs
 
 SRCS_NAME	=			minishell.c ft_echo.c ft_setup.c ft_input.c ft_cd.c\
-						ft_env.c ft_parseargs.c ft_exit.c ft_varenv.c
+						ft_env.c ft_parseargs.c ft_exit.c ft_varenv.c ft_list.c
 
 OBJS        =			${SRCS:.c=.o}
 
@@ -53,15 +53,19 @@ $(NAME):				$(LIB) ART $(OBJS) $(HEADER)
 						@echo "\x1b[36m\n[OK] \033[0m \x1b[35m Compiling Cube3D\033[0m"
 
 $(LIB):
-								@$(MAKE) -C Libftprintf all
+								@$(MAKE) -C Libftprintf all								
+								@$(MAKE) -C libasm all								
+
 
 clean:
 								@$(MAKE) -C Libftprintf clean
+								@$(MAKE) -C libasm clean
 								@echo "\x1b[36m[OK] \033[0m \x1b[34m Removing ALL File object\033[0m"
 								@$(RM) $(OBJS)
 
 fclean:                         clean
 								@$(MAKE) -C Libftprintf fclean
+								@$(MAKE) -C libasm fclean
 								@echo "\x1b[36m[OK] \033[0m \x1b[32m All is Removing\033[0m"
 								@$(RM) $(NAME)
 

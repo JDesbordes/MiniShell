@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/08 15:52:29 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/13 23:33:53 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/21 08:41:22 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,7 @@ char			*ft_strtrimr(char *s1, char const *set)
 		return (NULL);
 	start = getsize(s1, set, 1);
 	i = 0;
-	while (i <= size && size)
+	while (i <= size)
 	{
 		newstr[i] = s1[start];
 		start++;

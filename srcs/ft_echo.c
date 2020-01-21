@@ -6,18 +6,16 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 03:19:38 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/14 01:23:26 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/21 17:38:09 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_echo(char **args)
+int		ft_echo(char **args, int i)
 {
-	int		i;
-
-	i = 1;
+	i++;
 	while (args && args[i])
 	{
 		ft_printf("%s", args[i]);
