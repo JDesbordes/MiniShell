@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_echo.c                                        .::    .:/ .      .::   */
+/*   ft_memset.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/11 03:19:38 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 19:53:30 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/07 13:42:05 by jdesbord     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/21 13:57:27 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int		ft_echo(char **args, int i)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	int option;
+	size_t			i;
+	unsigned char	*str;
 
-	option = 0;
-	i++;
-	if (!ft_strcmp(args[1], "-n"))
+	if (!b)
+		return (NULL);
+	str = (unsigned char *)b;
+	i = 0;
+	while (i != len)
 	{
-		option = 1;
+		str[i] = c;
 		i++;
 	}
-	while (args && args[i])
-	{
-		ft_printf("%s", args[i]);
-		if (args[i + 1])
-			ft_printf(" ");
-		i++;
-	}
-	option ? 0 : ft_printf("\n");
-	return (1);
+	b = str;
+	return (b);
 }

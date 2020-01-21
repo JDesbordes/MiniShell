@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_echo.c                                        .::    .:/ .      .::   */
+/*   ft_strncmp.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/11 03:19:38 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 19:53:30 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/08 12:25:09 by jdesbord     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/21 13:51:51 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int		ft_echo(char **args, int i)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int option;
+	size_t	i;
 
-	option = 0;
-	i++;
-	if (!ft_strcmp(args[1], "-n"))
+	if (!s1 || !s2)
+		return (0);
+	if (n == 0)
+		return (0);
+	i = 0;
+	while (*s1 && *s2 && i < n - 1)
 	{
-		option = 1;
+		if (*s1 != *s2)
+			return (*(unsigned char *)s1 - *(unsigned char *)s2);
 		i++;
+		++s1;
+		++s2;
 	}
-	while (args && args[i])
-	{
-		ft_printf("%s", args[i]);
-		if (args[i + 1])
-			ft_printf(" ");
-		i++;
-	}
-	option ? 0 : ft_printf("\n");
-	return (1);
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }

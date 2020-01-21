@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_echo.c                                        .::    .:/ .      .::   */
+/*   ft_putnbr_fd.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/11 03:19:38 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 19:53:30 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/09 13:43:17 by jdesbord     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/09 19:36:48 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int		ft_echo(char **args, int i)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int option;
+	char c;
 
-	option = 0;
-	i++;
-	if (!ft_strcmp(args[1], "-n"))
+	if (n == -2147483648)
+		write(fd, "-2147483648", 11);
+	else if (n >= 0 && n < 10)
 	{
-		option = 1;
-		i++;
+		c = '0' + n;
+		write(fd, &c, 1);
 	}
-	while (args && args[i])
+	else if (n < 0)
 	{
-		ft_printf("%s", args[i]);
-		if (args[i + 1])
-			ft_printf(" ");
-		i++;
+		write(fd, "-", 1);
+		ft_putnbr_fd(-n, fd);
 	}
-	option ? 0 : ft_printf("\n");
-	return (1);
+	else
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
 }

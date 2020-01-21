@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_echo.c                                        .::    .:/ .      .::   */
+/*   ft_lstadd_back_bonus.c                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/11 03:19:38 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 19:53:30 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/09 15:39:40 by jdesbord     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/15 14:06:12 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int		ft_echo(char **args, int i)
+void			ft_lstadd_back(t_list **alst, t_list *new)
 {
-	int option;
-
-	option = 0;
-	i++;
-	if (!ft_strcmp(args[1], "-n"))
+	if (*alst == NULL)
 	{
-		option = 1;
-		i++;
+		*alst = new;
+		return ;
 	}
-	while (args && args[i])
-	{
-		ft_printf("%s", args[i]);
-		if (args[i + 1])
-			ft_printf(" ");
-		i++;
-	}
-	option ? 0 : ft_printf("\n");
-	return (1);
+	ft_lstlast(*alst)->next = new;
 }

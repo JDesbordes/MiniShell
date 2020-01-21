@@ -3,47 +3,15 @@
 /*                                                              /             */
 /*   minishell.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-<<<<<<< HEAD
-/*   Updated: 2020/01/20 21:31:38 by nepage-l    ###    #+. /#+    ###.fr     */
-=======
-/*   Updated: 2020/01/21 17:37:49 by jdesbord    ###    #+. /#+    ###.fr     */
->>>>>>> ddb517fb376860809bc4e6f910020f6e96fa85a3
+/*   Updated: 2020/01/21 20:07:29 by nepage-l    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_env_struct(char **envp, t_file *file)
-{
-	char	**tmp;
-	int 	i;
-	int 	j;
-	t_env	*tmpfile;
-
-	i = 0;
-	tmpfile = file->env;
-	while (envp[i])
-	{
-		j = 0;
-		tmp = ft_split((char *)envp[i], "=");
-		file->env->str = ft_strdup(tmp[0]);
-		file->env->content = ft_strdup(tmp[1]);
-		while (tmp[j])
-		{
-			free(tmp[j]);
-			j++;
-		}
-		free(tmp);
-		i++;
-		file->env->next = envp[i] ? malloc(sizeof(t_env) * 1) : NULL;
-		file->env = file->env->next;
-	}
-	file->env = tmpfile;
-}
 
 int		ft_manager(char **args2, t_file *file)
 {
@@ -126,15 +94,9 @@ int		minishell(int fd, char **envp)
 	int		i;
 	t_file	*file;
 
-<<<<<<< HEAD
-	i = 2;
-	file = malloc(sizeof(t_file) * 1);
-	file->env = malloc(sizeof(t_env) * 1);
-=======
 	i = -1;
 	file = ft_calloc(sizeof(t_file) , 1);
 	file->env = ft_calloc(sizeof(t_env) , 1);
->>>>>>> ddb517fb376860809bc4e6f910020f6e96fa85a3
 	ft_envsetup(envp, file);
 	ft_env_struct(envp, file);
 	if (!fd)
@@ -142,10 +104,8 @@ int		minishell(int fd, char **envp)
 		file->pathend = findpath();
 		ft_printf("\033[1;32mWELCOME TO MINISHELL\033[0m\n\033[01;33m%s->\033[0m", file->pathend);
 	}
-	ft_input(file);
-	while (get_next_line(fd, &line) > 0)
+	while (ft_input(file) && get_next_line(fd, &line))
 	{
-		ft_input(file);
 		iscommand(line, file);
 		if (!fd)
 			ft_printf("\033[01;33m%s->\033[0m", file->pathend);

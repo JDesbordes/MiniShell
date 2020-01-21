@@ -3,15 +3,43 @@
 /*                                                              /             */
 /*   ft_setup.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 23:58:49 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 08:54:34 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/21 20:07:28 by nepage-l    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_env_struct(char **envp, t_file *file)
+{
+	char	**tmp;
+	int 	i;
+	int 	j;
+	t_env	*tmpfile;
+
+	i = 0;
+	tmpfile = file->env;
+	while (envp[i])
+	{
+		j = 0;
+		tmp = ft_split((char *)envp[i], "=");
+		file->env->name = ft_strdup(tmp[0]);
+		file->env->content = ft_strdup(tmp[1]);
+		while (tmp[j])
+		{
+			free(tmp[j]);
+			j++;
+		}
+		free(tmp);
+		i++;
+		file->env->next = envp[i] ? malloc(sizeof(t_env) * 1) : NULL;
+		file->env = file->env->next;
+	}
+	file->env = tmpfile;
+}
 
 int		invertedcoma(char *com, int *i, char **join, char *args)
 {

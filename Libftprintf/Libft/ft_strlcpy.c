@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_echo.c                                        .::    .:/ .      .::   */
+/*   ft_strlcpy.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/11 03:19:38 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 19:53:30 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/08 13:19:21 by jdesbord     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/21 13:52:35 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int		ft_echo(char **args, int i)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	int option;
+	size_t	i;
+	size_t	j;
 
-	option = 0;
-	i++;
-	if (!ft_strcmp(args[1], "-n"))
+	if (!dest || !src)
+		return (0);
+	j = 0;
+	while (src[j] != '\0')
 	{
-		option = 1;
-		i++;
+		j++;
 	}
-	while (args && args[i])
+	if (size != 0)
 	{
-		ft_printf("%s", args[i]);
-		if (args[i + 1])
-			ft_printf(" ");
-		i++;
+		i = 0;
+		while (i < size - 1 && src[i] != '\0')
+		{
+			dest[i] = src[i];
+			i++;
+		}
+		dest[i] = '\0';
 	}
-	option ? 0 : ft_printf("\n");
-	return (1);
+	return (j);
 }

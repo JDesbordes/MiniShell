@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_echo.c                                        .::    .:/ .      .::   */
+/*   ft_memcmp.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/11 03:19:38 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 19:53:30 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/07 19:19:44 by jdesbord     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/21 13:47:50 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int		ft_echo(char **args, int i)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int option;
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	option = 0;
-	i++;
-	if (!ft_strcmp(args[1], "-n"))
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	i = 0;
+	if (!s1 && !s2)
+		return (0);
+	while (i < n)
 	{
-		option = 1;
+		if (*str1 != *str2)
+		{
+			return (*str1 - *str2);
+		}
 		i++;
+		++str1;
+		++str2;
 	}
-	while (args && args[i])
-	{
-		ft_printf("%s", args[i]);
-		if (args[i + 1])
-			ft_printf(" ");
-		i++;
-	}
-	option ? 0 : ft_printf("\n");
-	return (1);
+	return (0);
 }

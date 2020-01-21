@@ -6,11 +6,7 @@
 /*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 00:32:07 by jdesbord     #+#   ##    ##    #+#       */
-<<<<<<< HEAD
-/*   Updated: 2020/01/20 21:04:12 by nepage-l    ###    #+. /#+    ###.fr     */
-=======
-/*   Updated: 2020/01/21 17:38:24 by jdesbord    ###    #+. /#+    ###.fr     */
->>>>>>> ddb517fb376860809bc4e6f910020f6e96fa85a3
+/*   Updated: 2020/01/21 20:06:52 by nepage-l    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,11 +26,7 @@
 
 typedef struct		s_env
 {
-<<<<<<< HEAD
-	char			*str;
-=======
 	char			*name;
->>>>>>> ddb517fb376860809bc4e6f910020f6e96fa85a3
 	char			*content;
 	struct s_env	*next;
 }					t_env;
@@ -69,5 +61,7 @@ t_env				*ft_lstenvlast(t_env *lst);
 void				ft_lstenvadd_back(t_env **alst, t_env *new);
 void				ft_lstenvdelone(t_env *lst, void (*del)(void*));
 void				ft_lstenvclear(t_env **lst, void (*del)(void*));
+void				ft_env_struct(char **envp, t_file *file);
+void				ft_dollar(char **args2, t_file *file);
 
 #endif

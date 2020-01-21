@@ -6,11 +6,7 @@
 /*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/13 07:31:13 by jdesbord     #+#   ##    ##    #+#       */
-<<<<<<< HEAD
-/*   Updated: 2020/01/20 21:39:21 by nepage-l    ###    #+. /#+    ###.fr     */
-=======
-/*   Updated: 2020/01/21 16:51:56 by jdesbord    ###    #+. /#+    ###.fr     */
->>>>>>> ddb517fb376860809bc4e6f910020f6e96fa85a3
+/*   Updated: 2020/01/21 19:59:06 by nepage-l    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,13 +15,10 @@
 
 void		ft_dollar(char **args2, t_file *file)
 {
-<<<<<<< HEAD
 	int		i;
 	int		check;
-=======
-	/*int		i;
->>>>>>> ddb517fb376860809bc4e6f910020f6e96fa85a3
 	char	*tmp;
+	char	*tmp2;
 	t_env	*tmpfile;
 
 	i = 0;
@@ -40,37 +33,24 @@ void		ft_dollar(char **args2, t_file *file)
 			tmpfile = file->env;
 			while(file->env)
 			{
-				if (!ft_strncmp(tmp, file->env->str, ft_strlen(tmp) + 1))
+				tmp2 = ft_strjoin(file->env->name, "=");
+				if (!ft_strncmp(tmp, tmp2, ft_strlen(tmp) + 1))
 				{
 					args2[i] = ft_strdup(file->env->content);
 					check = 0;
 				}
+				free(tmp2);
 				file->env = file->env->next;
 			}
 			check ? args2[i] = ft_strdup("") : 0;
 			file->env = tmpfile;
 		}
-
 		i++;
-	}*/
+	}
 }
 
 char	ft_isseparator(char *args, int *i)
 {
-<<<<<<< HEAD
-	int k;
-	int j;
-
-	k = 0;
-	if (args[*i] && (args[*i] == ' ' || (args[*i] >= 9 && args[*i] <= 13)))
-		*y += 1;
-	*y == -1 ? *y += 1 : 0;
-	while (args[*i] && (args[*i] == ' ' || (args[*i] >= 9 && args[*i] <= 13)))
-		*i += 1;
-	j = *i;
-	while (args[*i] && args[*i] != ' ' && (args[*i] < 9 || args[*i] > 13)
-			&& args[*i] != '\'' && args[*i] != '\"' && args[*i] != ';')
-=======
 	if (args[*i] == '<')
 		return('<');
 	else if (args[*i] == '>')
@@ -86,7 +66,6 @@ char	ft_isseparator(char *args, int *i)
 		}
 	}
 	else if (args[*i] == '|')
->>>>>>> ddb517fb376860809bc4e6f910020f6e96fa85a3
 	{
 		return('|');
 	}
@@ -262,6 +241,6 @@ char	**ft_getargs(char *args, t_file *file)
 	args = temp;
 	args2 = ft_parse(args, temp, file);
 	free(args);
-	//ft_dollar(args2, file);
+	ft_dollar(args2, file);
 	return(args2);
 }

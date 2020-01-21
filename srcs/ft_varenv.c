@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_varenv.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/16 04:30:11 by nepage-l     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 17:36:36 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/21 19:58:19 by nepage-l    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,10 +71,10 @@ int					ft_varenv(char **args, t_file *file, int *i)
 		}
 	}
 	temp = F->env;
-	while (temp)
-	{
-		ft_printf("HERE : NAME = %s -> CONTENT = %s\n", temp->name, temp->content);
-		temp = temp->next;
-	}
+	// while (temp)
+	// {
+	// 	ft_printf("HERE : NAME = %s -> CONTENT = %s\n", temp->name, temp->content);
+	// 	temp = temp->next;
+	// }
     return (1);
 }
