@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_setup.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 23:58:49 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 20:07:28 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 09:32:20 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,29 +77,6 @@ int		doublecoma(char *com, int *i, char **join, char *args)
 	return (1);
 }
 
-char	**semicolon(char **args2, int *i)
-{
-	int j;
-	int y;
-	char **cutargs;
-
-	if (!args2[*i])
-		return (NULL);
-	j = *i;
-	while (args2[*i] && ft_strncmp(args2[*i], ";", 2))
-		*i += 1;
-	cutargs = ft_calloc(sizeof(char *), (*i - j + 1));
-	y = 0;
-	while (y < *i - j)
-	{
-		cutargs[y] = args2[j + y];
-		y++;
-	}
-	if (args2[*i] && args2[*i][0] == ';')
-		*i += 1;
-	return(cutargs);
-}
-
 int		nocoma(char *args, int *i, char **join, int *y)
 {
 	int k;
@@ -124,4 +101,14 @@ int		nocoma(char *args, int *i, char **join, int *y)
 		return (1);
 	}
 	return (0);
+}
+
+void				ft_converter(char **args2, t_file *file, int i)
+{
+	
+	while (args2[i])
+	{
+		
+		i++;
+	}
 }

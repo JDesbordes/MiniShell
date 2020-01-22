@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   minishell.h                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 00:32:07 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 20:06:52 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 09:32:33 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,7 +53,6 @@ char				*findpath(void);
 int					ft_env(char *com, char **args, t_file *file);
 int					ft_envsetup(char **envp, t_file *file);
 char				**ft_getargs(char *args, t_file *file);
-char				**semicolon(char **args2, int *i);
 int					ft_exit(char **args2, t_file *file);
 int					ft_varenv(char **args, t_file *file, int *i);
 t_env				*ft_lstenvnew(char *name, char *content);
@@ -63,5 +62,6 @@ void				ft_lstenvdelone(t_env *lst, void (*del)(void*));
 void				ft_lstenvclear(t_env **lst, void (*del)(void*));
 void				ft_env_struct(char **envp, t_file *file);
 void				ft_dollar(char **args2, t_file *file);
+void				ft_converter(char **args2, t_file *file, int i);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   minishell.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 20:07:29 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 09:30:16 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,7 @@ int		ft_manager(char **args2, t_file *file)
 
 	i = 0;
 	ft_varenv(args2, file, &i);
+	ft_converter(args2, file, i);
 	if (!args2 || !args2[i])
 		return (1);
 	if (!ft_strncmp(args2[i], "pwd", 4))
@@ -58,7 +59,6 @@ int		iscommand(char *line, t_file *file)
 {
 	char	*args;
 	char	**args2;
-	char	**cutargs;
 	int		i;
 
 	i = 0;
