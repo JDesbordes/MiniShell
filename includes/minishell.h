@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 00:32:07 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/22 13:16:49 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 15:35:43 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,7 +44,7 @@ typedef struct		s_file
 int					ft_echo(char **args, int i);
 char				*ft_strndup(char *src, int y);
 char				*invertedcoma(char *com, int *i);
-char				*doublecoma(char *com, int *i);
+char				*doublecoma(char *com, int *i, t_file *file);
 int					ft_input(t_file *file);
 int					ft_cd(char **args, t_file *file, int i);
 char				**ft_parse(char *args, char *temp, t_file *file);

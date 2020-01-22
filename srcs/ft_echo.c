@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_echo.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 03:19:38 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 19:53:30 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 15:08:39 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,9 +26,12 @@ int		ft_echo(char **args, int i)
 	}
 	while (args && args[i])
 	{
-		ft_printf("%s", args[i]);
-		if (args[i + 1])
-			ft_printf(" ");
+		if (args[i][0])
+		{
+			ft_printf("%s", args[i]);
+			if (args[i + 1])
+				ft_printf(" ");
+		}
 		i++;
 	}
 	option ? 0 : ft_printf("\n");
