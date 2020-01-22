@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/22 09:30:16 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 13:17:16 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ int		ft_manager(char **args2, t_file *file)
 	else if (!ft_strncmp(args2[i], "echo", 5))
 		return (ft_echo(args2, i));
 	else if (!ft_strncmp(args2[i], "cd", 3))
-		return (ft_cd(args2, file));
+		return (ft_cd(args2, file, i + 1));
 	else if (!ft_strncmp(args2[i], "exit", 5))
 		return (ft_exit(args2, file));
 	else
@@ -98,7 +98,6 @@ int		minishell(int fd, char **envp)
 	file = ft_calloc(sizeof(t_file) , 1);
 	file->env = ft_calloc(sizeof(t_env) , 1);
 	ft_envsetup(envp, file);
-	ft_env_struct(envp, file);
 	if (!fd)
 	{
 		file->pathend = findpath();

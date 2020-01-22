@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 00:32:07 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/22 09:32:33 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 13:16:49 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,10 +43,10 @@ typedef struct		s_file
 
 int					ft_echo(char **args, int i);
 char				*ft_strndup(char *src, int y);
-int					invertedcoma(char *com, int *i, char **join, char *args);
-int					doublecoma(char *com, int *i, char **join, char *args);
+char				*invertedcoma(char *com, int *i);
+char				*doublecoma(char *com, int *i);
 int					ft_input(t_file *file);
-int					ft_cd(char **args, t_file *file);
+int					ft_cd(char **args, t_file *file, int i);
 char				**ft_parse(char *args, char *temp, t_file *file);
 int					iscommand(char *line, t_file *file);
 char				*findpath(void);
@@ -60,8 +60,7 @@ t_env				*ft_lstenvlast(t_env *lst);
 void				ft_lstenvadd_back(t_env **alst, t_env *new);
 void				ft_lstenvdelone(t_env *lst, void (*del)(void*));
 void				ft_lstenvclear(t_env **lst, void (*del)(void*));
-void				ft_env_struct(char **envp, t_file *file);
-void				ft_dollar(char **args2, t_file *file);
+char				*ft_dollar(char *str, int *i, t_file *file);
 void				ft_converter(char **args2, t_file *file, int i);
 
 #endif

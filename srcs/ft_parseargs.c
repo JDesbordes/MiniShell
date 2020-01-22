@@ -3,50 +3,62 @@
 /*                                                              /             */
 /*   ft_parseargs.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/13 07:31:13 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 19:59:06 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 14:03:15 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		ft_dollar(char **args2, t_file *file)
+char		*ft_convert_dollar(char *nom, t_file *file)
 {
-	int		i;
-	int		check;
-	char	*tmp;
-	char	*tmp2;
-	t_env	*tmpfile;
-
+	char	*name;
+	int 	i;
+	int 	j;
+	t_env	*tmp;
+	
 	i = 0;
-	while (args2[i])
+	tmp = F->env;
+	while (tmp && tmp->name)
 	{
-		check = 1;
-		if (args2[i][0] == '$')
+		if (!ft_strcmp(tmp->name, nom))
+			return(ft_strdup(tmp->content));
+		tmp = tmp->next;
+	}
+	while (F->envp[i])
+	{
+		j = 0;
+		while (F->envp[i][j] != '=')
+			j++;
+		name = ft_strndup(F->envp[i], j);
+		if (!ft_strcmp(name, nom))
 		{
-			tmp = ft_substr(args2[i], 1, ft_strlen(args2[i]));
-			tmp = ft_strjoinrem(tmp, "="); 
-			free(args2[i]);
-			tmpfile = file->env;
-			while(file->env)
-			{
-				tmp2 = ft_strjoin(file->env->name, "=");
-				if (!ft_strncmp(tmp, tmp2, ft_strlen(tmp) + 1))
-				{
-					args2[i] = ft_strdup(file->env->content);
-					check = 0;
-				}
-				free(tmp2);
-				file->env = file->env->next;
-			}
-			check ? args2[i] = ft_strdup("") : 0;
-			file->env = tmpfile;
+			free(name);
+			return(ft_strdup(F->envp[i] + j + 1));
 		}
 		i++;
 	}
+	return (ft_strdup(""));
+}
+
+char		*ft_dollar(char *str, int *i, t_file *file)
+{
+	int j;
+	char *temp;
+
+	*i += 1;
+	j = *i;
+	while (str[*i] && str[*i] != ' ' && str[*i] != '\"' &&
+		str[*i] != '\'' && str[*i] != '$')
+	{
+		*i += 1;
+	}
+	temp = ft_strndup(str + j, *i - j);
+	*i -= 1;
+	return (ft_convert_dollar(temp, file));
 }
 
 char	ft_isseparator(char *args, int *i)
@@ -220,14 +232,6 @@ char		**ft_parse(char *args, char *temp, t_file *file)
 	}
 	if (F->sep)
 		F->args = ft_strdup(args + i + 1);
-	/*ft_printf("leftover = %s\n", F->args);
-	y = 0;
-	while (args2[y])
-	{
-		ft_printf("%s\n", args2[y]);
-		y++;
-	}
-	ft_printf("sep = %c\n", F->sep);*/
 	return (args2);
 }
 
@@ -241,6 +245,5 @@ char	**ft_getargs(char *args, t_file *file)
 	args = temp;
 	args2 = ft_parse(args, temp, file);
 	free(args);
-	ft_dollar(args2, file);
 	return(args2);
 }

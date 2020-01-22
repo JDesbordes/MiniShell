@@ -3,33 +3,33 @@
 /*                                                              /             */
 /*   ft_cd.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 03:53:30 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 19:47:03 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/22 13:19:32 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_cd(char **args, t_file *file)
+int		ft_cd(char **args, t_file *file, int i)
 {
-	if (!args[1] || !strncmp(args[1], "~", 2))
+	if (!args[i] || !strncmp(args[i], "~", 2))
 	{
-		if (!args[1])
+		if (!args[i])
 		{
-			free(args[0]);
+			free(args[i - 1]);
 			args = ft_split("cd $HOME", " ");
 		}
 		else
 		{
-			free(args[1]);
+			free(args[i]);
 			args[1] = ft_strdup("$HOME");
 		}
-		ft_dollar(args, file);
+		//args[i] = ft_dollar(args[i], i, file);
 	}
-	if (chdir(args[1]) == -1)
+	if (chdir(args[i]) == -1)
 	{
 		ft_printf("%s\n", strerror(errno));
 	}
