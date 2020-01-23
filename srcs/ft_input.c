@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_input.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 20:09:41 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 18:41:37 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/23 09:55:38 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,10 +27,23 @@ void	ft_ctrlbslash(int i)
 	signal(i, SIG_IGN);
 }
 
-int		ft_input(t_file *file)
+void	ft_silence(int i)
 {
-	signal(SIGINT, ft_ctrlC);
-	signal(SIGQUIT, ft_ctrlbslash);
+	ft_printf("\n");
+	signal(i, SIG_IGN);
+}
 
+int		ft_input(t_file *file, int option)
+{
+	if (option == 0)
+	{
+		signal(SIGINT, ft_ctrlC);
+		signal(SIGQUIT, ft_ctrlbslash);
+	}
+	else
+	{
+		signal(SIGINT, ft_silence);
+		signal(SIGQUIT, ft_silence);
+	}
 	return (1);
 }

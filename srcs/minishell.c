@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/22 13:17:16 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/23 17:39:38 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,8 +30,12 @@ int		ft_manager(char **args2, t_file *file)
 		return (ft_cd(args2, file, i + 1));
 	else if (!ft_strncmp(args2[i], "exit", 5))
 		return (ft_exit(args2, file));
+	else if (!ft_strncmp(args2[i], "env", 4))
+		return (ft_env(args2, file, -1));
+	else if (!ft_strncmp(args2[i], "unset", 6))
+		return (ft_unset(args2, file, 0));
 	else
-		return (ft_env(args2[i], args2, file));
+		return (ft_exec(args2[i], args2 + i, file));
 	return (0);
 }
 
@@ -59,15 +63,43 @@ int		iscommand(char *line, t_file *file)
 {
 	char	*args;
 	char	**args2;
-	int		i;
+	pid_t	pid;
 
-	i = 0;
+	F->sep = 0;
 	if(!(args2 = ft_getargs(line, file)))
 		return(0);
-	if(!ft_manager(args2, file))
+	if (F->sep == '|')
+	{
+		if (fork() == 0)
+		{
+			pipe(F->pfd);
+			if ((pid = fork()) == 0)
+			{
+				dup2(F->pfd[1], 1);
+				ft_manager(args2, file);
+				exit(0);
+			}
+			dup2(F->pfd[0], 0);
+			close(F->pfd[0]);
+			close(F->pfd[1]);
+			while(wait(NULL) > 0)
+				;
+		}
+		else
+		{
+			wait(NULL);
+			return (0);
+		}
+	}
+	else if(!ft_manager(args2, file))
 		ft_printf("\033[1;31munknown command %s\033[0m\n", args2[0]);
 	if (F->sep == ';')
 		iscommand(F->args, file);
+	if (F->sep == '|')
+	{
+		iscommand(F->args, file);
+		exit (0);
+	}
 	return (0);
 }
 
@@ -97,20 +129,19 @@ int		minishell(int fd, char **envp)
 	i = -1;
 	file = ft_calloc(sizeof(t_file) , 1);
 	file->env = ft_calloc(sizeof(t_env) , 1);
+	file->stop = 1;
 	ft_envsetup(envp, file);
 	if (!fd)
 	{
 		file->pathend = findpath();
 		ft_printf("\033[1;32mWELCOME TO MINISHELL\033[0m\n\033[01;33m%s->\033[0m", file->pathend);
 	}
-	while (ft_input(file) && get_next_line(fd, &line))
+	while (ft_input(file, 0) && get_next_line(fd, &line))
 	{
 		iscommand(line, file);
 		if (!fd)
 			ft_printf("\033[01;33m%s->\033[0m", file->pathend);
 	}
-	if (line[0])
-		iscommand(line, file);
 	if (!fd)
 		ft_printf("\033[2;32m\nEXIT\n\033[0m");
 	if (!fd)
@@ -121,9 +152,7 @@ int		minishell(int fd, char **envp)
 int		main(int ac, char **av, char** envp)
 {
 	int fd;
-	int i;
 
-	i = 0;
 	if (ac == 1)
 		minishell(0, envp);
 	else if (ac >= 2)
