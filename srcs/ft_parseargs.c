@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/13 07:31:13 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/23 09:31:58 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/24 11:42:15 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -240,6 +240,7 @@ char	**ft_getargs(char *args, t_file *file)
 	char *temp;
 	char **args2;
 
+	F->sep = 0;
 	temp = ft_strtrimr(args, " \t\b\r\v\f");
 	free(args);
 	args = temp;
