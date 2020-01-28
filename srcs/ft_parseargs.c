@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/13 07:31:13 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 13:44:10 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 17:38:39 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -148,7 +148,7 @@ char		**ft_parse(char *args, char *temp, t_file *file)
 		if (F->sep)
 		{
 			ft_redirlst(F->sep, file, args, &i);
-			k = i + 1;
+			k = i;
 		}
 		else if (args[i] == '\'')
 		{
@@ -215,7 +215,7 @@ char	**ft_getargs(char *args, t_file *file)
 	ft_lstenvclear(&F->direct, free);
 	F->sep = 0;
 	temp = ft_strtrimr(args, " \t\b\r\v\f");
-	free(args);
+	//free(args);
 	args = temp;
 	args2 = ft_parse(args, temp, file);
 	free(args);

@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 23:58:49 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 17:31:43 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 17:13:16 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,6 +60,7 @@ char		*nocoma(char *com, int *i, t_file *file)
 	int 	y;
 	int		j;
 	char	*temp;
+	char	*save;
 
 	y = 0;
 	j = *i;
@@ -68,13 +69,17 @@ char		*nocoma(char *com, int *i, t_file *file)
 	{
 		if (com[*i + y] == '$')
 		{
-			temp = ft_strjoinrem(temp, ft_strndup(com + j, y - ((j) - (*i))));
+			save = ft_strndup(com + j, y - ((j) - (*i)));
+			temp = ft_strjoinrem(temp, save);
+			free(save);
 			temp = ft_strjoinrem(temp, ft_dollar(com + *i, &y, file));
 			j = *i + y + 1;
 		}
 		y++;
 	}
-	temp = ft_strjoinrem(temp, ft_strndup(com + j, y - ((j) - (*i))));
+	save = ft_strndup(com + j, y - ((j) - (*i)));
+	temp = ft_strjoinrem(temp, save);
+	free(save);
 	*i += y - 1;
 	return (temp);
 }

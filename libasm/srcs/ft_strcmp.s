@@ -7,7 +7,6 @@ _ft_strcmp:
 	push rbp
 	push rbx
 	cmp rsi, 0
-	.exiterror
 	cmp rdi, 0
 	mov rbp, rsp
 

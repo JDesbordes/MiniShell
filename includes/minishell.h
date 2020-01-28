@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 00:32:07 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 13:31:41 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 16:31:39 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,6 +40,7 @@ typedef struct		s_file
 	char			*args;
 	char			sep;
 	char			stop;
+	char			stop2;
 	int				pfd[2];
 	int				inbackup;
 	int				outbackup;

@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 14:14:53 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 18:06:02 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,13 +76,15 @@ int		iscommand(char *line, t_file *file)
 	}
 	else if(!ft_manager(args2, file))
 		ft_printf("\033[1;31munknown command %s\033[0m\n", args2[0]);
-	if (F->stop == 't' && (F->sep == ';' || !F->sep))
-		exit(0);
-	if (F->sep == ';')
-		iscommand(F->args, file);
-	if (F->sep == '|')
+	if (F->stop2 == 't')
 	{
-		F->stop = 't';
+		dup2(F->outbackup, 1);
+		dup2(F->inbackup, 0);
+		F->stop2 = 0;
+	}
+	if (F->sep == ';' || F->sep == '|')
+	{
+		F->stop2 = 't';
 		iscommand(F->args, file);
 	}
 	return (0);
@@ -115,6 +117,8 @@ int		minishell(int fd, char **envp)
 	file = ft_calloc(sizeof(t_file) , 1);
 	file->env = ft_calloc(sizeof(t_env) , 1);
 	file->stop = 1;
+	F->inbackup = dup(STDIN_FILENO);
+	F->outbackup = dup(STDOUT_FILENO);
 	ft_envsetup(envp, file);
 	if (!fd)
 	{

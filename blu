@@ -1,6 +1,8 @@
 Libftprintf
 Makefile
 ble
+blecat
+blu
 includes
 libasm
 minishell

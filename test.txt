@@ -3,3 +3,4 @@ echo ble ; echo blu ; never ; ls ; stop
 cd ..
 cd ..
 pwd
+ls > ble | cat -e >> ble
