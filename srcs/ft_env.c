@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 23:29:04 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/23 18:14:13 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/27 13:25:25 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,15 @@ int		ft_paths(char *com, char **args2, t_file *file)
 		temp = ft_strjoinrem(temp, com);
 		if (stat (temp, &buffer) == 0)
 		{
-			if (fork() == 0)
+			if (F->stop == 't')
+			{
+				if (execve(temp, args2, file->envp) < 0)
+				{
+					ft_printf("\033[1;31m%s not an executable\033[0m\n", com);
+					exit(EXIT_SUCCESS);
+				}
+			}
+			else if (fork() == 0)
 			{
 				if (execve(temp, args2, file->envp) < 0)
 				{
@@ -48,12 +56,20 @@ int		ft_exec(char *com, char **args2, t_file *file)
 {
 	int		fd;
 	
-	if(!ft_strncmp(com, "./", 2))
+	if(!ft_strncmp(com, "./", 2) || !ft_strncmp(com, "../", 3))
 	{
 		if ((fd = open(com, 0)) > 0)
 		{
 			close(fd);
-			if (fork() == 0)
+			if (F->stop == 't')
+			{
+				if (execve(com, args2, file->envp) < 0)
+				{
+					ft_printf("\033[1;31m%s not an executable\033[0m\n", com);
+					exit(EXIT_SUCCESS);
+				}
+			}
+			else if (fork() == 0)
 			{
 				if (execve(com, args2 , file->envp) < 0)
 				{

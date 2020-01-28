@@ -1,5 +1,5 @@
 echo ble ; echo blu ; never ; ls ; stop
-""'' ""e"c"h''""'o' b"le" 'EFF' "wd'wwwf" "wfwev" '''wef' ; ""e"c"h''""'o'      b"le " 'EF  F' "  wd'wwwf" "wfwev" '    ''wef'
+""e"c"h''""'o'      b"le " 'EF  F' "  wd'wwwf" "wfwev" '    ''wef'
 cd ..
 cd ..
 pwd

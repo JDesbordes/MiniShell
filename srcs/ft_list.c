@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 16:56:03 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 17:08:51 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/25 15:50:53 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,7 @@ t_env	*ft_lstenvlast(t_env *lst)
 
 void			ft_lstenvadd_back(t_env **alst, t_env *new)
 {
-	if ((*alst)->name == NULL)
+	if (!(*alst) || (*alst)->name == NULL)
 	{
 		*alst = new;
 		return ;

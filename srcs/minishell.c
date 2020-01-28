@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/24 14:01:48 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 14:14:53 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,61 +63,20 @@ int		iscommand(char *line, t_file *file)
 {
 	char	*args;
 	char	**args2;
-	pid_t	pid;
+	t_env	*temp;
+	int		i;
 
 	F->sep = 0;
 	if(!(args2 = ft_getargs(line, file)))
 		return(0);
-	if (F->sep == '|')
+	if ((i = ft_redirection(args2, file)))
 	{
-		if (F->stop == 't')
-		{
-			pipe(F->pfd);
-			if ((pid = fork()) == 0)
-			{
-				dup2(F->pfd[1], 1);
-				ft_manager(args2, file);
-				exit(0);
-			}
-			dup2(F->pfd[0], 0);
-			close(F->pfd[0]);
-			close(F->pfd[1]);
-			while(wait(NULL) > 0)
-				;
-		}
-		else if (fork() == 0)
-		{
-			pipe(F->pfd);
-			if ((pid = fork()) == 0)
-			{
-				dup2(F->pfd[1], 1);
-				ft_manager(args2, file);
-				exit(0);
-			}
-			dup2(F->pfd[0], 0);
-			close(F->pfd[0]);
-			close(F->pfd[1]);
-			while(wait(NULL) > 0)
-				;
-		}
-		else
-		{
-			wait(NULL);
-			if (F->stop == 't')
-				exit (0);
-			while (F->sep != ';' && F->sep && (args2 = ft_getargs(F->args, file)))
-				;
-			if (F->sep)
-			{
-				iscommand(F->args, file);
-			}
-			else
-				return(0);
-		}
+		if (i < 0)
+			return (0);
 	}
 	else if(!ft_manager(args2, file))
 		ft_printf("\033[1;31munknown command %s\033[0m\n", args2[0]);
-	if (F->stop == 't' && F->sep != '|')
+	if (F->stop == 't' && (F->sep == ';' || !F->sep))
 		exit(0);
 	if (F->sep == ';')
 		iscommand(F->args, file);
@@ -164,9 +123,16 @@ int		minishell(int fd, char **envp)
 	}
 	while (ft_input(file, 0) && get_next_line(fd, &line))
 	{
+		F->stop = 0;
 		iscommand(line, file);
 		if (!fd)
 			ft_printf("\033[01;33m%s->\033[0m", file->pathend);
+		line = NULL;
+	}
+	if (line)
+	{
+		F->stop = 0;
+		iscommand(line, file);
 	}
 	if (!fd)
 		ft_printf("\033[2;32m\nEXIT\n\033[0m");

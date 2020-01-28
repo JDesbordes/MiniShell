@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 23:58:49 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/22 16:31:41 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/27 17:31:43 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,5 +102,7 @@ void		ft_converter(char **args2, t_file *file, int i)
 		args2[i] = temp;
 		temp = NULL;
 		i++;
+		if(F->stop == 'o' || F->stop == 's')
+			break ;
 	}
 }

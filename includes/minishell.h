@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 00:32:07 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/23 16:48:45 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 13:31:41 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,9 @@ typedef struct		s_file
 	char			sep;
 	char			stop;
 	int				pfd[2];
+	int				inbackup;
+	int				outbackup;
+	t_env			*direct;
 	t_env			*env;
 }					t_file;
 
@@ -67,5 +70,11 @@ void				ft_lstenvdelone(t_env *lst, void (*del)(void*));
 void				ft_lstenvclear(t_env **lst, void (*del)(void*));
 char				*ft_dollar(char *str, int *i, t_file *file);
 void				ft_converter(char **args2, t_file *file, int i);
+int					ft_redirlst(char c, t_file *file, char *args, int *i);
+int					ft_countcoma(char *args, int *i, int *y, char c);
+char				ft_isseparator(char *args, int *i);
+void				ft_countword(char *args, int *i, int *y);
+int					ft_redirection(char **args2, t_file *file);
+int					ft_manager(char **args2, t_file *file);
 
 #endif
