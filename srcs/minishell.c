@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 18:06:02 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 20:02:37 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@ int		ft_manager(char **args2, t_file *file)
 	if (!ft_strncmp(args2[i], "pwd", 4))
 		return (ft_printf("%s\n", getcwd(NULL, _POSIX_PATH_MAX)));
 	else if (!ft_strncmp(args2[i], "echo", 5))
-		return (ft_echo(args2, i));
+		return (ft_echo(args2, file, i));
 	else if (!ft_strncmp(args2[i], "cd", 3))
 		return (ft_cd(args2, file, i + 1));
 	else if (!ft_strncmp(args2[i], "exit", 5))
@@ -34,6 +34,8 @@ int		ft_manager(char **args2, t_file *file)
 		return (ft_env(args2, file, -1));
 	else if (!ft_strncmp(args2[i], "unset", 6))
 		return (ft_unset(args2, file, 0));
+	else if (!ft_strncmp(args2[i], "export", 7))
+		return (ft_export(args2, file, 1));
 	else
 		return (ft_exec(args2[i], args2 + i, file));
 	return (0);
@@ -120,6 +122,7 @@ int		minishell(int fd, char **envp)
 	F->inbackup = dup(STDIN_FILENO);
 	F->outbackup = dup(STDOUT_FILENO);
 	ft_envsetup(envp, file);
+	F->home = ft_convert_dollar("HOME", file);       
 	if (!fd)
 	{
 		file->pathend = findpath();

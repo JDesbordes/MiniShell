@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/22 15:40:18 by nepage-l     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/23 18:38:06 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 19:54:56 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,10 @@ int     ft_unset(char **args, t_file *file, int i)
 	int		j;
 
 	if (!args[1])
+	{
 		ft_printf("unset: not enough arguments\n");
+		F->status = 1;
+	}
     else
     {
 		while(F->envp[i])

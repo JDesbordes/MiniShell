@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 23:58:49 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 17:13:16 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 19:53:53 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -110,4 +110,24 @@ void		ft_converter(char **args2, t_file *file, int i)
 		if(F->stop == 'o' || F->stop == 's')
 			break ;
 	}
+}
+
+void		ft_converter2(char **args2, t_file *file, int i)
+{
+	char	*temp;
+	
+	temp = NULL;
+	while (args2[0][i])
+	{
+		if (args2[0][i] == '\'')
+			temp = ft_strjoinrem(temp, invertedcoma(args2[0], &i));
+		else if (args2[0][i] == '\"')
+			temp = ft_strjoinrem(temp, doublecoma(args2[0], &i, file));
+		else
+			temp = ft_strjoinrem(temp, nocoma(args2[0], &i, file));
+		i++;
+	}
+	free(args2[0]);
+	args2[0] = temp;
+	temp = NULL;
 }

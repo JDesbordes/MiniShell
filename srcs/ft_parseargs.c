@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/13 07:31:13 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 17:38:39 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 20:24:17 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,6 @@ char		*ft_convert_dollar(char *nom, t_file *file)
 {
 	char	*name;
 	int 	i;
-	int 	j;
 	t_env	*tmp;
 	
 	i = 0;
@@ -30,17 +29,17 @@ char		*ft_convert_dollar(char *nom, t_file *file)
 	}
 	while (F->envp[i])
 	{
-		j = 0;
-		while (F->envp[i][j] != '=')
-			j++;
-		name = ft_strndup(F->envp[i], j);
-		if (!ft_strcmp(name, nom))
+		name = ft_strjoin(nom, "=");
+		if (!ft_strncmp(name, F->envp[i], ft_strlen(name)))
 		{
 			free(name);
-			return(ft_strdup(F->envp[i] + j + 1));
+			return(ft_strdup(ft_strchr(F->envp[i], '=') + 1));
 		}
+		free(name);
 		i++;
 	}
+	if (!ft_strcmp(nom, "HOME"))
+		return (ft_strdup(F->home));
 	return (ft_strdup(""));
 }
 
@@ -58,6 +57,8 @@ char		*ft_dollar(char *str, int *i, t_file *file)
 	}
 	temp = ft_strndup(str + j, *i - j);
 	*i -= 1;
+	if (!ft_strcmp(temp, "?"))
+		return (ft_interrog(file));
 	return (ft_convert_dollar(temp, file));
 }
 

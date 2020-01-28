@@ -6,14 +6,14 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 03:19:38 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 11:20:55 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 19:38:00 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_echo(char **args, int i)
+int		ft_echo(char **args, t_file *file, int i)
 {
 	int option;
 
@@ -38,5 +38,6 @@ int		ft_echo(char **args, int i)
 		}
 	}
 	option ? 0 : ft_printf("\n");
+	F->status = 0;
 	return (1);
 }

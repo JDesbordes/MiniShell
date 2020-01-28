@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 23:29:04 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 13:25:25 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 19:39:14 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,7 +43,7 @@ int		ft_paths(char *com, char **args2, t_file *file)
 				}
 			}
 			ft_input(file, 1);
-			wait(NULL);
+			wait(&F->status);
 			return (1);
 		}
 		free (temp);
@@ -77,7 +77,7 @@ int		ft_exec(char *com, char **args2, t_file *file)
 					exit(EXIT_SUCCESS);
 				}
 			}
-			wait(NULL);
+			wait(&F->status);
 			return (1);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 03:53:30 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/23 09:29:14 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 20:24:45 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ int		ft_cd(char **args, t_file *file, int i)
 {
 	if (!args[i] || !strncmp(args[i], "~", 2))
 	{
-		if (!args[i])
+		/*if (!args[i])
 		{
 			free(args[i - 1]);
 			args = ft_split("cd $HOME", " ");
@@ -26,10 +26,10 @@ int		ft_cd(char **args, t_file *file, int i)
 		{
 			free(args[i]);
 			args[1] = ft_strdup("$HOME");
-		}
-		//args[i] = ft_dollar(args[i], i, file);
+		}*/
+		args[i] = ft_convert_dollar("HOME", file);
 	}
-	if (chdir(args[i]) == -1)
+	if ((F->status = chdir(args[i])) == -1)
 	{
 		ft_printf("%s\n", strerror(errno));
 	}

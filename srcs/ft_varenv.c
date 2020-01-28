@@ -6,18 +6,27 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/16 04:30:11 by nepage-l     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/25 15:47:17 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/28 19:56:19 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_isvar(char *str)
+char 				*ft_interrog(t_file *file)
+{
+	if (F->status != 127)
+		return(ft_itoa(WEXITSTATUS(F->status)));
+	return(ft_itoa(127));
+}
+
+int					ft_isvar(char *str)
 {
 	int i;
 
 	i = 0;
+	if (ft_isdigit(str[i]))
+		return (0);
 	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 		i++;
 	if (i != 0 && str[i] == '=')
@@ -28,8 +37,21 @@ int		ft_isvar(char *str)
 int					ft_isexist(t_file *file, char *name, char *content)
 {
 	t_env	*temp;
+	int		i;
+	char	*tmp;
 
 	temp = F->env;
+	tmp = ft_strjoin(name, "=");
+	i = 0;
+	while (F->envp[i])
+	{
+        if (!ft_strncmp(F->envp[i], tmp, ft_strlen(tmp)))
+		{
+			ft_strcpy(F->envp[i] + ft_strlen(tmp), content);
+			return (1);
+		}
+		i++;
+	}
 	while (temp)
 	{
 		if (temp->name && !ft_strcmp(temp->name, name))
@@ -70,6 +92,5 @@ int					ft_varenv(char **args, t_file *file, int *i)
 			k++;
 		}
 	}
-	temp = F->env;
     return (1);
 }
