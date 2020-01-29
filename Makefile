@@ -6,7 +6,7 @@
 #    By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/07 15:34:08 by jdesbord     #+#   ##    ##    #+#        #
-#    Updated: 2020/01/28 19:56:57 by jdesbord    ###    #+. /#+    ###.fr      #
+#    Updated: 2020/01/29 16:09:46 by jdesbord    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -26,7 +26,7 @@ SRC_PATH	=			srcs
 SRCS_NAME	=			minishell.c ft_echo.c ft_setup.c ft_input.c ft_cd.c\
 						ft_env.c ft_parseargs.c ft_exit.c ft_varenv.c ft_list.c\
 						ft_unset.c ft_redirlst.c extraparse.c ft_redirection.c\
-						ft_export.c
+						ft_export.c ft_synthax.c
 
 OBJS        =			${SRCS:.c=.o}
 

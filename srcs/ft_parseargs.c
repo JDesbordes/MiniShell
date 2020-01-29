@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/13 07:31:13 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 20:24:17 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/29 11:51:14 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -199,12 +199,6 @@ char		**ft_parse(char *args, char *temp, t_file *file)
 	if (F->sep == ';' || F->sep =='|')
 		F->args = ft_strdup(args + i + 1);
 	F->stop = 0;
-	/*i = 0;
-	while(args2[i])
-	{
-		ft_printf("args = %s\n", args2[i]);
-		i++;
-	}*/
 	return (args2);
 }
 

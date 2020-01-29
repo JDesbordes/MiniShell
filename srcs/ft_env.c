@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 23:29:04 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 19:39:14 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/29 14:55:59 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,15 +26,7 @@ int		ft_paths(char *com, char **args2, t_file *file)
 		temp = ft_strjoinrem(temp, com);
 		if (stat (temp, &buffer) == 0)
 		{
-			if (F->stop == 't')
-			{
-				if (execve(temp, args2, file->envp) < 0)
-				{
-					ft_printf("\033[1;31m%s not an executable\033[0m\n", com);
-					exit(EXIT_SUCCESS);
-				}
-			}
-			else if (fork() == 0)
+			if (fork() == 0)
 			{
 				if (execve(temp, args2, file->envp) < 0)
 				{
@@ -43,6 +35,11 @@ int		ft_paths(char *com, char **args2, t_file *file)
 				}
 			}
 			ft_input(file, 1);
+			if (F->stop2 == 'z')
+			{
+				close(F->pfd2[1]);
+				close(F->pfd2[0]);
+			}
 			wait(&F->status);
 			return (1);
 		}

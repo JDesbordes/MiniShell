@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 15:20:14 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 18:39:38 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/29 15:51:30 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,9 @@ int		ft_redirection(char **args2, t_file *file)
 		close(fd);
 	}
 	//case with redirection plus | so (ls > ble | ls > blu) works
-	if (F->sep == '|')
+	if (F->sep == '|' && fd)
+		F->stop = '!';
+	if (F->sep == '|' && !fd)
 	{
 		F->stop2 = 0;
 		pipe(F->pfd);

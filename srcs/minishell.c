@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 20:02:37 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/29 16:12:19 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,11 +78,25 @@ int		iscommand(char *line, t_file *file)
 	}
 	else if(!ft_manager(args2, file))
 		ft_printf("\033[1;31munknown command %s\033[0m\n", args2[0]);
-	if (F->stop2 == 't')
+	if (F->stop2 == 't' || F->stop2 == 'z')
 	{
 		dup2(F->outbackup, 1);
 		dup2(F->inbackup, 0);
 		F->stop2 = 0;
+	}
+	if (F->stop == '!')
+	{
+		F->stop2 = 'z';
+		pipe(F->pfd2);
+		if ((fork()) == 0)
+		{
+			dup2(F->pfd2[1], 1);
+			exit(0);
+		}
+		dup2(F->pfd2[0], 0);
+		close(F->pfd2[0]);
+		close(F->pfd2[1]);
+		wait(NULL);
 	}
 	if (F->sep == ';' || F->sep == '|')
 	{
@@ -131,7 +145,14 @@ int		minishell(int fd, char **envp)
 	while (ft_input(file, 0) && get_next_line(fd, &line))
 	{
 		F->stop = 0;
-		iscommand(line, file);
+		if (check_syntax(line, file))
+			iscommand(line, file);
+		else if(fd)
+		{
+			free(line);
+			line = NULL;
+			break;
+		}
 		if (!fd)
 			ft_printf("\033[01;33m%s->\033[0m", file->pathend);
 		line = NULL;

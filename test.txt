@@ -1,6 +1,62 @@
 echo ble ; echo blu ; never ; ls ; stop
 ""e"c"h''""'o'      b"le " 'EF  F' "  wd'wwwf" "wfwev" '    ''wef'
 cd ..
-cd ..
 pwd
 ls > ble | cat -e >> ble
+cat ble
+ls > ble | cat -e | ls | cat -e > blu
+cat ble
+cat blu
+
+~ TESTS ~
+    / PARTIE OBLIGATOIRE /
+/ RD ET PIPES /
+echo bjr > a ; cat a
+echo oio > b ; cat < a >> b
+printf "81\n65\n31\n13\n91\n19\n87" | grep 1
+printf "81\n65\n31\n13\n91\n19\n87" | grep 1 | sort -n
+printf "81\n65\n31\n13\n91\n19\n87" | grep 1 | sort -n | cat -e > c
+echo bjr > a > b > c ; cat c ; echo "--" ; cat -e a b
+cat -e < b < c
+rm a b c
+/ PARSING /
+echo "\n"
+echo \n
+echo \\
+echo "\\"
+echo '\\'
+echo \'
+echo '\'''
+echo "\""
+echo \''"'"\"'"\\"\n"\n
+echo -n lala lili lolo
+echo "salut     hey"    ok "   oui"
+/ BUILTINS /
+pwd
+pwd salut abgs uhsq
+fewew pwd
+/ ENV ET VARIABLES /
+echo -n $USER "$USER" '$USER'
+echo $LANG$USER
+ababou=bidule ; echo $ababou ; env | grep ababou ; export ababou ; env | grep ababou
+unset ababou ; env | grep ababou
+aaa=bbb ccc=$aaa ; echo $ccc ; 
+aaa=bbb ; ccc=$aaa ; echo $ccc ; unset aaa ccc
+"a"=7
+3a=7
+at5=6 ; unset at5
+yowo=diqa > apo ;
+yowo=diqa < apo ; rm apo
+yowo=diqa < apo
+yowo=diqa >> apo ; rm apo
+wefyg=ewhv wy=ra iopo=qwef echo yessaye ; echo $wefyg$wy$iopo; unset wefyg wy iopo
+export owo=uwu aya=oyo ; export | grep owo aya
+unset owo aya
+adu=ewwo ; export adu ; echo $adu ; env | grep adu ; unset adu
+piscine=42 env | piscine ; echo $piscine
+
+echo LOL wtf
+rm ble
+ls >> ble | ls > blu | echo hello > ble
+cat blu
+cat ble
