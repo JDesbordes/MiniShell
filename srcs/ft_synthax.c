@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/29 16:08:52 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/29 16:16:58 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/30 14:22:16 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,10 +23,8 @@ int		return_status(int errcode)
 }
 int		limite(char *s, int i, int cpt)
 {
-	while (i >= 0 && s[i] != ';' && s[i] != '(' && s[i] != '|')
+	while (i >= 0 && s[i] != ';')
 	{
-		if (s[i] == '&' && s[i + 1] == '&' && cpt == 0)
-			return (0);
 		if (s[i] == '|' && s[i + 1] == '|' && cpt == 0)
 			return (0);
 		if (ft_isalnum(s[i]))

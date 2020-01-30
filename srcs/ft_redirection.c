@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 15:20:14 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/29 15:51:30 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/30 19:34:36 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,8 @@ int		ft_redirection(char **args2, t_file *file)
 		}
 		else if (!ft_strcmp(temp->name, "<"))
 		{
-			fd2 = open(temp->content, O_RDONLY);
+			if ((fd2 = open(temp->content, O_RDONLY)) < 0)
+				return (-ft_printf("\033[1;31m%s doesn't exist\n\033[0m", temp->content));
 		}
 		temp = temp->next;
 	}

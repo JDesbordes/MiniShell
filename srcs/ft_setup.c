@@ -6,12 +6,23 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 23:58:49 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/28 19:53:53 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/30 23:20:46 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int		ft_backslash(char c, char **str)
+{
+	char *result;
+
+	result = ft_calloc(sizeof(char), 2);
+	result[0] = c;
+	*str = ft_strjoinrem(*str, result);
+	free(result);
+	return(0);
+}
 
 char	*invertedcoma(char *com, int *i)
 {
@@ -36,6 +47,7 @@ char		*doublecoma(char *com, int *i, t_file *file)
 	int		y;
 	int		j;
 	char	*temp;
+	char	*save;
 
 	y = 1;
 	j = *i + 1;
@@ -44,13 +56,30 @@ char		*doublecoma(char *com, int *i, t_file *file)
 	{
 		if (com[*i + y] == '$')
 		{
-			temp = ft_strjoinrem(temp, ft_strndup(com + j, y - ((j) - (*i))));
+			save = ft_strndup(com + j, y - ((j) - (*i)));
+			temp = ft_strjoinrem(temp, save);
+			free(save);
 			temp = ft_strjoinrem(temp, ft_dollar(com + *i, &y, file));
 			j = *i + y + 1;
 		}
+		if (com[*i + y] == '\\')
+		{
+			if (com[*i + y + 1] == '\\' || com[*i + y + 1] == '\"' || com[*i + y + 1] == '$')
+			{
+				save = ft_strndup(com + j, y - ((j) - (*i)));
+				temp = ft_strjoinrem(temp, save);
+				free(save);
+				y++;
+				j = *i + y;
+				if (!com[*i + y])
+					break ;
+			}
+		}
 		y++;
 	}
-	temp = ft_strjoinrem(temp, ft_strndup(com + j, y - ((j) - (*i))));
+	save = ft_strndup(com + j, y - ((j) - (*i)));
+	temp = ft_strjoinrem(temp, save);
+	free(save);
 	*i += y;
 	return (temp);
 }
@@ -75,6 +104,17 @@ char		*nocoma(char *com, int *i, t_file *file)
 			temp = ft_strjoinrem(temp, ft_dollar(com + *i, &y, file));
 			j = *i + y + 1;
 		}
+		if (com[*i + y] == '\\')
+		{
+			save = ft_strndup(com + j, y - ((j) - (*i)));
+			ft_backslash(com[*i + y + 1], &save);
+			temp = ft_strjoinrem(temp, save);
+			free(save);
+			y++;
+			if (!com[*i + y])
+				break ;
+			j = *i + y + 1;
+		}
 		y++;
 	}
 	save = ft_strndup(com + j, y - ((j) - (*i)));
@@ -88,6 +128,7 @@ void		ft_converter(char **args2, t_file *file, int i)
 {
 	int		j;
 	char	*temp;
+	char	*save;
 	
 	temp = NULL;
 	while (args2[i])
@@ -96,11 +137,23 @@ void		ft_converter(char **args2, t_file *file, int i)
 		while (args2[i][j])
 		{
 			if (args2[i][j] == '\'')
-				temp = ft_strjoinrem(temp, invertedcoma(args2[i], &j));
+			{
+				save = invertedcoma(args2[i], &j);
+				temp = ft_strjoinrem(temp, save);
+				free(save);
+			}
 			else if (args2[i][j] == '\"')
-				temp = ft_strjoinrem(temp, doublecoma(args2[i], &j, file));
+			{
+				save = doublecoma(args2[i], &j, file);
+				temp = ft_strjoinrem(temp, save);
+				free(save);
+			}
 			else
-				temp = ft_strjoinrem(temp, nocoma(args2[i], &j, file));
+			{
+				save = nocoma(args2[i], &j, file);
+				temp = ft_strjoinrem(temp, save);
+				free(save);
+			}
 			j++;
 		}
 		free(args2[i]);
@@ -115,16 +168,29 @@ void		ft_converter(char **args2, t_file *file, int i)
 void		ft_converter2(char **args2, t_file *file, int i)
 {
 	char	*temp;
+	char	*save;
 	
 	temp = NULL;
 	while (args2[0][i])
 	{
 		if (args2[0][i] == '\'')
-			temp = ft_strjoinrem(temp, invertedcoma(args2[0], &i));
+		{
+			save = invertedcoma(args2[0], &i);
+			temp = ft_strjoinrem(temp, save);
+			free(save);
+		}
 		else if (args2[0][i] == '\"')
-			temp = ft_strjoinrem(temp, doublecoma(args2[0], &i, file));
+		{
+			save = doublecoma(args2[0], &i, file);
+			temp = ft_strjoinrem(temp, save);
+			free(save);
+		}
 		else
-			temp = ft_strjoinrem(temp, nocoma(args2[0], &i, file));
+		{
+			save = nocoma(args2[0], &i, file);
+			temp = ft_strjoinrem(temp, save);
+			free(save);
+		}
 		i++;
 	}
 	free(args2[0]);

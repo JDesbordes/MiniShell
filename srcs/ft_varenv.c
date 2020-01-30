@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/16 04:30:11 by nepage-l     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/29 11:49:03 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/30 23:01:33 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,8 +86,8 @@ int					ft_varenv(char **args, t_file *file, int *i)
 			content = ft_strdup(args[k] + j + 1);
 			if (!ft_isexist(file, name, content))
 			{
-				temp = ft_lstenvnew(name , content);
-				ft_lstenvadd_back(&F->env, temp);
+				temp = ft_lstenvnew(name , content); ///leaks
+				ft_lstenvadd_back(&F->env, temp); ///leaks
 			}
 			k++;
 		}

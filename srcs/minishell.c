@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/29 16:12:19 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/30 23:35:44 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,6 +101,13 @@ int		iscommand(char *line, t_file *file)
 	if (F->sep == ';' || F->sep == '|')
 	{
 		F->stop2 = 't';
+		i = 0;
+		while(args2[i])
+		{
+			free(args2[i]);
+			i++;
+		}
+		free(args2);
 		iscommand(F->args, file);
 	}
 	return (0);
@@ -131,7 +138,6 @@ int		minishell(int fd, char **envp)
 
 	i = -1;
 	file = ft_calloc(sizeof(t_file) , 1);
-	file->env = ft_calloc(sizeof(t_env) , 1);
 	file->stop = 1;
 	F->inbackup = dup(STDIN_FILENO);
 	F->outbackup = dup(STDOUT_FILENO);
@@ -160,12 +166,19 @@ int		minishell(int fd, char **envp)
 	if (line)
 	{
 		F->stop = 0;
-		iscommand(line, file);
+		if (check_syntax(line, file))
+			iscommand(line, file);
+		else if(fd)
+			free(line);
 	}
 	if (!fd)
 		ft_printf("\033[2;32m\nEXIT\n\033[0m");
 	if (!fd)
 		free(file->pathend);
+	while(1)
+	{
+		
+	}
 	return (0);
 }
 

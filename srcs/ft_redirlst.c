@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/25 13:30:03 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 19:18:43 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/30 22:14:03 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,7 @@ char	*ft_getfile(char *args, int *i, t_file *file)
 	int j;
 	int y;
 	char *result;
+	char *temp;
 	
 	*i += 1;
 	j = *i;
@@ -57,7 +58,9 @@ char	*ft_getfile(char *args, int *i, t_file *file)
 		}
 		(*i)++;
 	}
-	result = ft_strtrimr(ft_strndup(args + j, *i - j), " \t\b\r\v\f");
+	temp = ft_strndup(args + j, *i - j);
+	result = ft_strtrimr(temp, " \t\b\r\v\f");
+	free(temp);
 	ft_converter(&result, file, 0);
 	return(result);
 }

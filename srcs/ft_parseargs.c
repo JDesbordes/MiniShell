@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/13 07:31:13 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/29 11:51:14 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/30 23:09:13 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -169,7 +169,18 @@ char		**ft_parse(char *args, char *temp, t_file *file)
 		{
 			i++;
 			while (args[i] && args[i] != '\"')
+			{
+				if (args[i] == '\\')
+				{
+					if (args[i + 1] == '\\' || args[i + 1] == '\"' || args[i + 1] == '$')
+					{
+						i++;
+						if (!args[i])
+							break ;
+					}
+				}
 				i++;
+			}
 			i++;
 			if (!args[i] || ft_isseparator(args, &i) || args[i] == ' ' || (args[i] >= 9 && args[i] <= 13))
 			{
@@ -183,7 +194,13 @@ char		**ft_parse(char *args, char *temp, t_file *file)
 		{
 			while (args[i] && !ft_isseparator(args, &i) && (args[i] != ' ' && args[i] != '\''
 			&& args[i] != '\"' && (args[i] < 9 || args[i] > 13)))
+			{
+				if (args[i] == '\\')
+					i++;
+				if (!args[i])
+					break;
 				i++;
+			}
 			if (!args[i] || ft_isseparator(args, &i) || args[i] == ' ' || (args[i] >= 9 && args[i] <= 13))
 			{
 				args2[y] = ft_strndup(args + k, i - k);
@@ -192,7 +209,7 @@ char		**ft_parse(char *args, char *temp, t_file *file)
 			}
 			i--;
 		}
-		if (args[i] == ' ' || (args[i] >= 9 && args[i] <= 13))
+		else if (args[i] == ' ' || (args[i] >= 9 && args[i] <= 13))
 			k++;
 		i++;
 	}
@@ -210,7 +227,7 @@ char	**ft_getargs(char *args, t_file *file)
 	ft_lstenvclear(&F->direct, free);
 	F->sep = 0;
 	temp = ft_strtrimr(args, " \t\b\r\v\f");
-	//free(args);
+	free(args);
 	args = temp;
 	args2 = ft_parse(args, temp, file);
 	free(args);
