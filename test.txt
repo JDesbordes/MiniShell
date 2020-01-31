@@ -1,6 +1,7 @@
 echo ble ; echo blu ; never ; ls ; stop
 ""e"c"h''""'o'      b"le " 'EF  F' "  wd'wwwf" "wfwev" '    ''wef'
-cd ..
+mkdir results
+cd results
 pwd
 ls > ble | cat -e >> ble
 cat ble
@@ -60,3 +61,5 @@ rm ble
 ls >> ble | ls > blu | echo hello > ble
 cat blu
 cat ble
+rm 	ble
+rm	blu

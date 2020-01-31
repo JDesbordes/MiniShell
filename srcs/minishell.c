@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/30 23:35:44 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/31 16:09:39 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -142,7 +142,7 @@ int		minishell(int fd, char **envp)
 	F->inbackup = dup(STDIN_FILENO);
 	F->outbackup = dup(STDOUT_FILENO);
 	ft_envsetup(envp, file);
-	F->home = ft_convert_dollar("HOME", file);       
+	F->home = ft_convert_dollar("HOME", file);
 	if (!fd)
 	{
 		file->pathend = findpath();
@@ -175,10 +175,6 @@ int		minishell(int fd, char **envp)
 		ft_printf("\033[2;32m\nEXIT\n\033[0m");
 	if (!fd)
 		free(file->pathend);
-	while(1)
-	{
-		
-	}
 	return (0);
 }
 
