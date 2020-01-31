@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_varenv.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/16 04:30:11 by nepage-l     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/30 23:01:33 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/31 20:57:36 by nepage-l    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,6 +65,17 @@ int					ft_isexist(t_file *file, char *name, char *content)
 	return (0);
 }
 
+char				*ft_contentenv(char *com, t_file *file)
+{
+	int 	p;
+	char	*tmp;
+
+	p = 0;
+	tmp = ft_strdup(com);
+	ft_converter2(&tmp, file, 0);
+	return (tmp);
+}
+
 int					ft_varenv(char **args, t_file *file, int *i)
 {
 	int		j;
@@ -83,7 +94,7 @@ int					ft_varenv(char **args, t_file *file, int *i)
 		while (k < *i && (j = ft_isvar(args[k])))
 		{
 			name = ft_strndup(args[k], j);
-			content = ft_strdup(args[k] + j + 1);
+			content = ft_contentenv(args[k] + j + 1, file);
 			if (!ft_isexist(file, name, content))
 			{
 				temp = ft_lstenvnew(name , content); ///leaks
