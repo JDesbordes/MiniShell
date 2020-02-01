@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/13 07:31:13 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/30 23:09:13 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/01 04:41:47 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,8 +38,6 @@ char		*ft_convert_dollar(char *nom, t_file *file)
 		free(name);
 		i++;
 	}
-	if (!ft_strcmp(nom, "HOME"))
-		return (ft_strdup(F->home));
 	return (ft_strdup(""));
 }
 
@@ -47,6 +45,7 @@ char		*ft_dollar(char *str, int *i, t_file *file)
 {
 	int j;
 	char *temp;
+	char *result;
 
 	*i += 1;
 	j = *i;
@@ -58,8 +57,13 @@ char		*ft_dollar(char *str, int *i, t_file *file)
 	temp = ft_strndup(str + j, *i - j);
 	*i -= 1;
 	if (!ft_strcmp(temp, "?"))
+	{
+		free(temp);
 		return (ft_interrog(file));
-	return (ft_convert_dollar(temp, file));
+	}
+	result = ft_convert_dollar(temp, file);
+	free(temp);
+	return (result);
 }
 
 char	ft_isseparator(char *args, int *i)

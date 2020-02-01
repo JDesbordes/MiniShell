@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 23:29:04 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/31 16:19:49 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/01 04:46:29 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ int		ft_paths(char *com, char **args2, t_file *file)
 	{
 		temp = ft_strjoin(file->paths[i], "/");
 		temp = ft_strjoinrem(temp, com);
-		if (stat (temp, &buffer) == 0)
+		if (stat(temp, &buffer) == 0)
 		{
 			if (fork() == 0)
 			{
@@ -41,9 +41,10 @@ int		ft_paths(char *com, char **args2, t_file *file)
 				close(F->pfd2[0]);
 			}
 			wait(&F->status);
+			free(temp);
 			return (1);
 		}
-		free (temp);
+		free(temp);
 		i++;
 	}
 	return (0);
@@ -53,7 +54,7 @@ int		ft_exec(char *com, char **args2, t_file *file)
 {
 	int		fd;
 	
-	if(!ft_strncmp(com, "./", 2) || !ft_strncmp(com, "../", 3))
+	if(!ft_strncmp(com, "./", 2) || !ft_strncmp(com, "../", 3) || !ft_strncmp(com, "/", 1))
 	{
 		if ((fd = open(com, 0)) > 0)
 		{
@@ -90,6 +91,7 @@ int		ft_env(char **args, t_file *file , int i)
 	{
 		ft_printf("%s\n", F->envp[i]);
 	}
+	F->status = 0;
 	return (1);
 }
 
@@ -98,7 +100,7 @@ int		ft_envsetup(char **envp, t_file *file)
 	int i;
 
 	i = 0;
-	file->envp = envp;
+	file->envp = ft_tabdup(envp);
 	while(envp && envp[i])
 	{
 		if (!ft_strncmp(envp[i], "PATH=", 5))

@@ -1,45 +1,48 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_cd.c                                          .::    .:/ .      .::   */
+/*   ft_freestruct.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/12 03:53:30 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/01 04:43:18 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Created: 2020/01/31 21:47:41 by jdesbord     #+#   ##    ##    #+#       */
+/*   Updated: 2020/02/01 04:44:00 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_cd(char **args, t_file *file, int i)
+void	ft_freestruct(t_file *file)
 {
-	char *str;
+	 int i;
 
-	if (!args[i] || !strncmp(args[i], "~", 2))
+	 ft_lstenvclear(&F->direct, free);
+	 ft_lstenvclear(&F->env, free);
+	free(F->pathend);
+	i = 0;
+	while(F->paths && F->paths[i])
 	{
-		str = ft_convert_dollar("HOME", file);
-		if ((F->status = chdir(str)) == -1)
-		{
-			ft_printf("HOME not set\n");
-		}
-		free(str);
+		free(F->paths[i]);
+		i++;
 	}
-	else if ((F->status = chdir(args[i])) == -1)
+	F->paths ? free(F->paths) : 0;
+	i = 0;
+	while(F->envp && F->envp[i])
 	{
-		ft_printf("%s\n", strerror(errno));
+		free(F->envp[i]);
+		i++;
 	}
-	if (!(ft_strncmp(str = getcwd(NULL, _POSIX_PATH_MAX), "/", 2)))
-	{
-		free(F->pathend);
-		F->pathend = ft_strdup("/");
-	}
-	else
-	{
-		free(F->pathend);
-		F->pathend = findpath();
-	}
-	free(str);
-	return (1);
+	F->envp ? free(F->envp) : 0;
+	free(file);
+}
+
+void 	ft_free_tab(char **tab)
+{
+	int i;
+	
+	i = -1;
+	while (tab[++i])
+		free(tab[i]);
+	free(tab);
 }

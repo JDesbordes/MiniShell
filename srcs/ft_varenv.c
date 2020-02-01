@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_varenv.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: nepage-l <nepage-l@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/16 04:30:11 by nepage-l     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/31 20:57:36 by nepage-l    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/01 05:00:00 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,7 @@
 char 				*ft_interrog(t_file *file)
 {
 	if (F->status != 127)
-		return(ft_itoa(WEXITSTATUS(F->status)));
+		return(ft_itoa(F->status));
 	return(ft_itoa(127));
 }
 
@@ -48,10 +48,12 @@ int					ft_isexist(t_file *file, char *name, char *content)
         if (!ft_strncmp(F->envp[i], tmp, ft_strlen(tmp)))
 		{
 			ft_strcpy(F->envp[i] + ft_strlen(tmp), content);
+			free(tmp);
 			return (1);
 		}
 		i++;
 	}
+	free(tmp);
 	while (temp)
 	{
 		if (temp->name && !ft_strcmp(temp->name, name))
@@ -97,10 +99,12 @@ int					ft_varenv(char **args, t_file *file, int *i)
 			content = ft_contentenv(args[k] + j + 1, file);
 			if (!ft_isexist(file, name, content))
 			{
-				temp = ft_lstenvnew(name , content); ///leaks
-				ft_lstenvadd_back(&F->env, temp); ///leaks
+				temp = ft_lstenvnew(name , content);
+				ft_lstenvadd_back(&F->env, temp);
 			}
-			k++;
+			else
+				free(name);
+			k = k + 1;
 		}
 	}
     return (1);

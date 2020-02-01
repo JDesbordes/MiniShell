@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 00:32:07 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/31 16:09:36 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/01 04:41:01 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,6 @@ typedef struct		s_file
 	char			**paths;
 	char			**envp;
 	char			*args;
-	char			*home;
 	char			sep;
 	char			stop;
 	char			stop2;
@@ -64,7 +63,7 @@ int					ft_exec(char *com, char **args, t_file *file);
 int					ft_env(char **args, t_file *file , int i);
 int					ft_envsetup(char **envp, t_file *file);
 char				**ft_getargs(char *args, t_file *file);
-int					ft_exit(char **args2, t_file *file);
+int					ft_exit(char **args2, t_file *file, int i);
 int					ft_varenv(char **args, t_file *file, int *i);
 t_env				*ft_lstenvnew(char *name, char *content);
 t_env				*ft_lstenvlast(t_env *lst);
@@ -87,5 +86,9 @@ int     			ft_export(char **args, t_file *file , int i);
 int					ft_isvar(char *str);
 int     			ft_exist_env(char **env, char *args);
 char				*ft_convert_dollar(char *nom, t_file *file);
+void				ft_freestruct(t_file *file);
+char				**ft_tabdup(char **tab);
+void 				ft_free_tab(char **tab);
+char				**ft_tabjoinrem(char **tab, char *str);
 
 #endif

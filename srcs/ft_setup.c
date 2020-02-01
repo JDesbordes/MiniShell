@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 23:58:49 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/30 23:20:46 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/01 00:58:46 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,7 +59,8 @@ char		*doublecoma(char *com, int *i, t_file *file)
 			save = ft_strndup(com + j, y - ((j) - (*i)));
 			temp = ft_strjoinrem(temp, save);
 			free(save);
-			temp = ft_strjoinrem(temp, ft_dollar(com + *i, &y, file));
+			temp = ft_strjoinrem(temp, save = ft_dollar(com + *i, &y, file));
+			free(save);
 			j = *i + y + 1;
 		}
 		if (com[*i + y] == '\\')
@@ -101,7 +102,8 @@ char		*nocoma(char *com, int *i, t_file *file)
 			save = ft_strndup(com + j, y - ((j) - (*i)));
 			temp = ft_strjoinrem(temp, save);
 			free(save);
-			temp = ft_strjoinrem(temp, ft_dollar(com + *i, &y, file));
+			temp = ft_strjoinrem(temp, save = ft_dollar(com + *i, &y, file));
+			free(save);
 			j = *i + y + 1;
 		}
 		if (com[*i + y] == '\\')
@@ -171,29 +173,29 @@ void		ft_converter2(char **args2, t_file *file, int i)
 	char	*save;
 	
 	temp = NULL;
-	while (args2[0][i])
+	while ((*args2)[i])
 	{
-		if (args2[0][i] == '\'')
+		if ((*args2)[i] == '\'')
 		{
-			save = invertedcoma(args2[0], &i);
+			save = invertedcoma(*args2, &i);
 			temp = ft_strjoinrem(temp, save);
 			free(save);
 		}
-		else if (args2[0][i] == '\"')
+		else if ((*args2)[i] == '\"')
 		{
-			save = doublecoma(args2[0], &i, file);
+			save = doublecoma(*args2, &i, file);
 			temp = ft_strjoinrem(temp, save);
 			free(save);
 		}
 		else
 		{
-			save = nocoma(args2[0], &i, file);
+			save = nocoma(*args2, &i, file);
 			temp = ft_strjoinrem(temp, save);
 			free(save);
 		}
 		i++;
 	}
-	free(args2[0]);
-	args2[0] = temp;
+	free(*args2);
+	*args2 = temp;
 	temp = NULL;
 }

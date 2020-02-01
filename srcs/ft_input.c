@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 20:09:41 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/31 16:19:41 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/01 03:50:17 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,6 +24,7 @@ void	ft_ctrlC(int i)
 
 void	ft_ctrlbslash(int i)
 {
+	ft_printf("Quit: 3\n");
 	signal(i, SIG_IGN);
 }
 
@@ -43,12 +44,12 @@ int		ft_input(t_file *file, int option)
 	if (option == 0)
 	{
 		signal(SIGINT, ft_ctrlC);
-		signal(SIGQUIT, ft_ctrlbslash);
+		signal(SIGQUIT, ft_silence);
 	}
 	else if (option == 1)
 	{
 		signal(SIGINT, ft_nl);
-		signal(SIGQUIT, ft_silence);
+		signal(SIGQUIT, ft_ctrlbslash);
 	}
 	else
 	{
