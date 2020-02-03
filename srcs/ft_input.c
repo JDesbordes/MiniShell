@@ -6,14 +6,14 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 20:09:41 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/01 03:50:17 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/01 21:31:31 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_ctrlC(int i)
+void	ft_ctrlc(int i)
 {
 	char *tmp;
 
@@ -43,7 +43,7 @@ int		ft_input(t_file *file, int option)
 {
 	if (option == 0)
 	{
-		signal(SIGINT, ft_ctrlC);
+		signal(SIGINT, ft_ctrlc);
 		signal(SIGQUIT, ft_silence);
 	}
 	else if (option == 1)

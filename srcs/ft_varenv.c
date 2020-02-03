@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/16 04:30:11 by nepage-l     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/01 05:00:00 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/03 19:04:54 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,7 +74,7 @@ char				*ft_contentenv(char *com, t_file *file)
 
 	p = 0;
 	tmp = ft_strdup(com);
-	ft_converter2(&tmp, file, 0);
+	ft_converter2(&tmp, file, -1);
 	return (tmp);
 }
 

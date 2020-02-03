@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/10 23:53:21 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/01 04:48:49 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/03 19:18:19 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ int		ft_manager(char **args2, t_file *file)
 
 	i = 0;
 	ft_varenv(args2, file, &i);
-	ft_converter(args2, file, i);
+	ft_converter(args2, file, i - 1);
 	if (!args2 || !args2[i])
 		return (1);
 	if (!ft_strncmp(args2[i], "pwd", 4))

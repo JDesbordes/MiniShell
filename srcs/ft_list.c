@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/21 16:56:03 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/25 15:50:53 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/01 21:32:19 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ t_env	*ft_lstenvlast(t_env *lst)
 	return (lst->next ? ft_lstenvlast(lst->next) : lst);
 }
 
-void			ft_lstenvadd_back(t_env **alst, t_env *new)
+void	ft_lstenvadd_back(t_env **alst, t_env *new)
 {
 	if (!(*alst) || (*alst)->name == NULL)
 	{
@@ -53,7 +53,7 @@ void	ft_lstenvdelone(t_env *lst, void (*del)(void*))
 	free(lst);
 }
 
-void			ft_lstenvclear(t_env **lst, void (*del)(void*))
+void	ft_lstenvclear(t_env **lst, void (*del)(void*))
 {
 	if ((*lst) != NULL)
 		ft_lstenvclear(&((*lst)->next), *del);

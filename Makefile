@@ -6,7 +6,7 @@
 #    By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/07 15:34:08 by jdesbord     #+#   ##    ##    #+#        #
-#    Updated: 2020/02/01 04:32:11 by jdesbord    ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/03 16:34:11 by jdesbord    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -26,7 +26,7 @@ SRC_PATH	=			srcs
 SRCS_NAME	=			minishell.c ft_echo.c ft_setup.c ft_input.c ft_cd.c\
 						ft_env.c ft_parseargs.c ft_exit.c ft_varenv.c ft_list.c\
 						ft_unset.c ft_redirlst.c extraparse.c ft_redirection.c\
-						ft_export.c ft_synthax.c ft_freestruct.c
+						ft_export.c ft_synthax.c ft_freestruct.c ft_tab.c
 
 OBJS        =			${SRCS:.c=.o}
 
@@ -34,7 +34,7 @@ NAME		=			minishell
 
 RM			=			rm -f
 
-FLAGS		=			-g3
+FLAGS		=			-g3 -fsanitize=address
 
 SRCS		=			$(addprefix $(SRC_PATH)/,$(SRCS_NAME))
 
@@ -52,7 +52,7 @@ bonus: all
 
 $(NAME):				$(LIB) ART $(OBJS) $(HEADER)
 						@gcc $(OBJS) $(FLAGS) $(LIBS) -o $(NAME) -lm
-						@echo "\x1b[36m\n[OK] \033[0m \x1b[35m Compiling Cube3D\033[0m"
+						@echo "\x1b[36m\n[OK] \033[0m \x1b[35m Compiling Minifell\033[0m"
 
 $(LIB):
 								@$(MAKE) -C Libftprintf all								

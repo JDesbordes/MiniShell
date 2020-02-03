@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/22 15:40:18 by nepage-l     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/01 04:56:24 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/03 16:56:59 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,7 +40,7 @@ void     ft_unset_t_env(char **args, t_file *file)
 	t_env *suiv;
 
 	tmp = F->env;
-	while (F->env && ft_exist_envp(tmp->name, args, 0))
+	while (F->env && ft_exist_envp(F->env->name, args, 0))
 	{
 		tmp = F->env;
 		F->env = F->env->next;
@@ -72,7 +72,7 @@ int     ft_unset(char **args, t_file *file, int i)
 	j = 0;
 	while(F->envp[k])
 	{
-		if (ft_exist_envp(F->envp[k], args, 1))
+		if (ft_exist_envp(F->envp[k], args + i, 1))
 			;
 		else
 			j++;
@@ -82,7 +82,7 @@ int     ft_unset(char **args, t_file *file, int i)
 	j = 0;
 	while (j < k)
 	{
-		if (ft_exist_envp(F->envp[j], args, 1))
+		if (ft_exist_envp(F->envp[j], args + i, 1))
 			;
 		else
 			new[count++] = ft_strdup(F->envp[j]);
@@ -91,7 +91,7 @@ int     ft_unset(char **args, t_file *file, int i)
 	j = 0;
 	ft_free_tab(F->envp);
 	F->envp = new;
-	ft_unset_t_env(args, file);
+	ft_unset_t_env(args + i, file);
     return (1);
 }
 
