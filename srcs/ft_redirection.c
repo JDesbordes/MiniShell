@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 15:20:14 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/03 18:31:25 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/04 03:23:07 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,7 +63,6 @@ void	ft_pipe(t_file *file, char **args2)
 int		ft_redirection(char **args2, t_file *file)
 {
 	int		fd[2];
-	int		backup;
 
 	if (ft_readirection(file, &fd[0], &fd[1]) < 0)
 		return (-1);

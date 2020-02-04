@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/01 20:06:20 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/01 20:06:53 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/04 03:25:12 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,6 @@ char	**ft_tabdup(char **tab)
 char	**ft_tabjoinrem(char **tab, char *str)
 {
 	int		i;
-	int		j;
 	char	**new;
 
 	i = 0;

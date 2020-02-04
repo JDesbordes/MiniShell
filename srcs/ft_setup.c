@@ -6,126 +6,79 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/11 23:58:49 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/03 20:27:44 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/04 03:26:09 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_backslash(char c, char **str)
-{
-	char *result;
-
-	result = ft_calloc(sizeof(char), 2);
-	result[0] = c;
-	*str = ft_strjoinrem(*str, result);
-	free(result);
-	return (0);
-}
-
-char	*invertedcoma(char *com, int *i)
-{
-	int y;
-	int j;
-
-	y = 1;
-	j = *i;
-	while (com[*i + y] && com[*i + y] != '\'')
-		y++;
-	if (y > 1)
-	{
-		*i += y;
-		return (ft_strndup(com + j + 1, y - 1));
-	}
-	*i += y;
-	return (ft_strdup(""));
-}
-
 char		*doublecoma(char *com, int *i, t_file *file)
 {
-	int		y;
-	int		j;
+	int		lo[4];
 	char	*temp;
 	char	*save;
 
-	y = 1;
-	j = *i + 1;
+	lo[0] = 1;
+	lo[1] = *i + 1;
+	lo[2] = *i;
 	temp = NULL;
-	while (com[*i + y] && com[*i + y] != '\"')
+	while (com[lo[2] + lo[0]] && com[lo[2] + lo[0]] != '\"')
 	{
-		if (com[*i + y] == '$')
-		{
-			save = ft_strndup(com + j, y - ((j) - (*i)));
-			temp = ft_strjoinrem(temp, save);
-			free(save);
-			save = ft_dollar(com + *i, &y, file);
-			temp = ft_strjoinrem(temp, save);
-			free(save);
-			j = *i + y + 1;
-		}
-		if (com[*i + y] == '\\')
-		{
-			if (com[*i + y + 1] == '\\' || com[*i + y + 1] == '\"'
-			|| com[*i + y + 1] == '$')
-			{
-				save = ft_strndup(com + j, y - ((j) - (*i)));
-				temp = ft_strjoinrem(temp, save);
-				free(save);
-				y++;
-				if (!com[*i + y])
-					break ;
-				j = *i + y;
-			}
-		}
-		y++;
+		lo[1] = coma_dollar(lo, com, &temp, file);
+		if (!(lo[3] = dblcoma_bckslash(lo, com, &temp))
+		&& (lo[1] = lo[3]))
+			break ;
+		lo[0]++;
 	}
-	save = ft_strndup(com + j, y - ((j) - (*i)));
+	save = ft_strndup(com + lo[1], lo[0] - ((lo[1]) - (lo[2])));
 	temp = ft_strjoinrem(temp, save);
 	free(save);
-	*i += y;
+	*i += lo[0];
 	return (temp);
+}
+
+int			nocoma_bckslash(int lo[3], char *com, char **temp)
+{
+	char *save;
+
+	if (com[lo[2] + lo[0]] == '\\')
+	{
+		save = ft_strndup(com + lo[1], lo[0] - ((lo[1]) - (lo[2])));
+		ft_backslash(com[lo[2] + lo[0] + 1], &save);
+		*temp = ft_strjoinrem(*temp, save);
+		free(save);
+		lo[0]++;
+		if (!com[lo[2] + lo[0]])
+			return (0);
+		lo[1] = lo[2] + lo[0] + 1;
+	}
+	return (lo[1]);
 }
 
 char		*nocoma(char *com, int *i, t_file *file)
 {
-	int		y;
-	int		j;
+	int		lo[4];
 	char	*temp;
 	char	*save;
 
-	y = 0;
-	j = *i;
+	lo[0] = 0;
+	lo[1] = *i;
+	lo[2] = *i;
 	temp = NULL;
-	while (com[*i + y] && com[*i + y] != '\"' && com[*i + y] != '\'')
+	while (com[lo[2] + lo[0]] && com[lo[2] + lo[0]] != '\"' &&
+	com[lo[2] + lo[0]] != '\'')
 	{
-		if (com[*i + y] == '$')
-		{
-			save = ft_strndup(com + j, y - ((j) - (*i)));
-			temp = ft_strjoinrem(temp, save);
-			free(save);
-			save = ft_dollar(com + *i, &y, file);
-			temp = ft_strjoinrem(temp, save);
-			free(save);
-			j = *i + y + 1;
-		}
-		if (com[*i + y] == '\\')
-		{
-			save = ft_strndup(com + j, y - ((j) - (*i)));
-			ft_backslash(com[*i + y + 1], &save);
-			temp = ft_strjoinrem(temp, save);
-			free(save);
-			y++;
-			if (!com[*i + y])
-				break ;
-			j = *i + y + 1;
-		}
-		y++;
+		lo[1] = coma_dollar(lo, com, &temp, file);
+		if (!(lo[3] = nocoma_bckslash(lo, com, &temp))
+		&& (lo[1] = lo[3]))
+			break ;
+		lo[0]++;
 	}
-	save = ft_strndup(com + j, y - ((j) - (*i)));
+	save = ft_strndup(com + lo[1], lo[0] - ((lo[1]) - (lo[2])));
 	temp = ft_strjoinrem(temp, save);
 	free(save);
-	*i += y - 1;
+	*i += lo[0] - 1;
 	return (temp);
 }
 

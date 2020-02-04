@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/24 15:38:46 by nepage-l     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/03 18:08:24 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/04 03:23:46 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,10 +87,9 @@ void	ft_export_envp(char **args, t_file *file, t_env *tmp, int i)
 
 int		ft_export(char **args, t_file *file, int i)
 {
-	char	**new;
-	char	*temp;
 	t_env	*tmp;
 
+	tmp = NULL;
 	if (!args[i + 1])
 		return (ft_export_print(file, i));
 	while (args[i])
@@ -110,7 +109,7 @@ int		ft_export(char **args, t_file *file, int i)
 	return (1);
 }
 
-char		*ft_dollar(char *str, int *i, t_file *file)
+char	*ft_dollar(char *str, int *i, t_file *file)
 {
 	int		j;
 	char	*temp;

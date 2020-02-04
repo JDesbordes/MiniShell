@@ -6,7 +6,7 @@
 #    By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/11/07 15:34:08 by jdesbord     #+#   ##    ##    #+#        #
-#    Updated: 2020/02/03 16:34:11 by jdesbord    ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/04 03:30:38 by jdesbord    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -26,7 +26,8 @@ SRC_PATH	=			srcs
 SRCS_NAME	=			minishell.c ft_echo.c ft_setup.c ft_input.c ft_cd.c\
 						ft_env.c ft_parseargs.c ft_exit.c ft_varenv.c ft_list.c\
 						ft_unset.c ft_redirlst.c extraparse.c ft_redirection.c\
-						ft_export.c ft_synthax.c ft_freestruct.c ft_tab.c
+						ft_export.c ft_synthax.c ft_freestruct.c ft_tab.c extrasetup.c\
+						ft_manager.c
 
 OBJS        =			${SRCS:.c=.o}
 
@@ -34,7 +35,7 @@ NAME		=			minishell
 
 RM			=			rm -f
 
-FLAGS		=			-g3 -fsanitize=address
+FLAGS		=			-g3 -fsanitize=address -Wall -Wextra -Werror
 
 SRCS		=			$(addprefix $(SRC_PATH)/,$(SRCS_NAME))
 

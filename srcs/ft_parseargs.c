@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/13 07:31:13 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/03 18:09:04 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/04 03:22:38 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,10 +41,8 @@ char		*ft_convert_dollar(char *nom, t_file *file)
 	return (ft_strdup(""));
 }
 
-char		ft_isseparator(char *args, int *i)
+char		ft_isseparator(char *args, int *i, int option)
 {
-	t_env *temp;
-
 	if (args[*i] == '<')
 	{
 		return ('<');
@@ -53,7 +51,7 @@ char		ft_isseparator(char *args, int *i)
 	{
 		if (args[*i + 1] == '>')
 		{
-			*i += 1;
+			option ? *i += 1 : 0;
 			return ('d');
 		}
 		else
@@ -75,7 +73,7 @@ char		**ft_nbargs(char *args, t_file *file, int i)
 	y = 0;
 	while (args[i])
 	{
-		F->sep = ft_isseparator(args, &i);
+		F->sep = ft_isseparator(args, &i, 1);
 		if (F->sep == ';' || F->sep == '|')
 			break ;
 		if (F->sep)
@@ -96,7 +94,7 @@ char		**ft_nbargs(char *args, t_file *file, int i)
 	return (ft_calloc(sizeof(char *), y + 1));
 }
 
-char		**ft_parse(char *args, char *temp, t_file *file, int no[3])
+char		**ft_parse(char *args, t_file *file, int no[3])
 {
 	char	**args2;
 
@@ -104,11 +102,11 @@ char		**ft_parse(char *args, char *temp, t_file *file, int no[3])
 		return (NULL);
 	while (args[++no[0]])
 	{
-		F->sep = ft_isseparator(args, &no[0]);
+		F->sep = ft_isseparator(args, &no[0], 1);
 		if (F->sep == ';' || F->sep == '|')
 			break ;
 		if (F->sep && ft_redirlst(F->sep, file, args, &no[0]))
-			no[1] = no[0];
+			no[1] = no[0] + 1;
 		else if (args[no[0]] == '\'')
 			no[2] += singlecoma2(args, &(args2[no[2]]), &no[0], &no[1]);
 		else if (args[no[0]] == '\"')
@@ -138,7 +136,7 @@ char		**ft_getargs(char *args, t_file *file)
 	temp = ft_strtrimr(args, " \t\b\r\v\f");
 	free(args);
 	args = temp;
-	args2 = ft_parse(args, temp, file, ntn);
+	args2 = ft_parse(args, file, ntn);
 	free(args);
 	return (args2);
 }

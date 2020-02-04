@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/29 16:08:52 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/30 14:22:16 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/04 03:24:08 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,8 @@ int		return_status(int errcode)
 		ft_printf("syntax error near unexpected token ;\n");
 	return (0);
 }
-int		limite(char *s, int i, int cpt)
+
+int		limit(char *s, int i, int cpt)
 {
 	while (i >= 0 && s[i] != ';')
 	{
@@ -32,24 +33,25 @@ int		limite(char *s, int i, int cpt)
 		i--;
 	}
 	return (cpt == 0 ? 0 : 1);
- }
+}
 
-int		check_syntax(char *s, t_file *file)
+int		check_syntax(char *s)
 {
 	int		i;
+
 	i = 0;
 	while (s[i])
 	{
-		if ((s[i] == ';') && !limite(s, i - 1, 0))
+		if ((s[i] == ';') && !limit(s, i - 1, 0))
 			return (return_status(1));
 		else if (s[i] == '|' && s[i + 1] && s[i + 1] == '|')
 		{
-			if (!limite(s, i - 1, 0))
+			if (!limit(s, i - 1, 0))
 				return (return_status(5));
 			else
 				i++;
 		}
-		else if ((s[i] == '|') && !limite(s, i - 1, 0))
+		else if ((s[i] == '|') && !limit(s, i - 1, 0))
 			return (return_status(0));
 		i++;
 	}

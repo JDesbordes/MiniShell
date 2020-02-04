@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/12 23:29:04 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/01 19:46:32 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/04 03:21:00 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ int		ft_paths(char *com, char **args2, t_file *file, int i)
 					ft_printf("\033[1;31m%s not an executable\033[0m\n", com))
 					exit(EXIT_SUCCESS);
 			}
-			ft_input(file, 1);
+			ft_input(1);
 			if (F->stop2 == 'z' && !close(F->pfd2[1]))
 				close(F->pfd2[0]);
 			wait(&F->status);
@@ -60,7 +60,7 @@ int		ft_exec(char *com, char **args2, t_file *file)
 			else if (fork() == 0 && execve(com, args2, file->envp) < 0 &&
 					ft_printf("\033[1;31m%s not an executable\033[0m\n", com))
 				exit(EXIT_SUCCESS);
-			ft_input(file, 2);
+			ft_input(2);
 			wait(&F->status);
 			F->status = WEXITSTATUS(F->status);
 			return (1);
@@ -71,7 +71,7 @@ int		ft_exec(char *com, char **args2, t_file *file)
 	return (0);
 }
 
-int		ft_env(char **args, t_file *file, int i)
+int		ft_env(t_file *file, int i)
 {
 	while (F->envp[++i])
 	{
@@ -97,4 +97,15 @@ int		ft_envsetup(char **envp, t_file *file)
 		i++;
 	}
 	return (0);
+}
+
+int		ft_pwd(void)
+{
+	int		j;
+	char	*str;
+
+	str = getcwd(NULL, _POSIX_PATH_MAX);
+	j = ft_printf("%s\n", str);
+	free(str);
+	return (j);
 }
