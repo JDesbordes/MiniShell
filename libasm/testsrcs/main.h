@@ -6,7 +6,7 @@
 /*   By: jdesbord <jdesbord@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/15 02:27:31 by jdesbord     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/21 17:23:05 by jdesbord    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/04 07:29:36 by jdesbord    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,8 @@ int					ft_atoi_base(char *str, char *base);
 int					ft_list2_push_front(t_list2 **addr, void *data);
 t_list2				*ft_list2_create_elem(void *content);
 int					ft_list2_size(t_list2 *begin_list2);
-void 				ft_list2_sort(t_list2 **begin_list2, int (*cmp)());
-void				ft_list2_remove_if(t_list2 **begin_list2, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
+void				ft_list2_sort(t_list2 **begin_list2, int (*cmp)());
+void				ft_list2_remove_if(t_list2 **begin_list2, void *data_ref,
+						int (*cmp)(), void (*free_fct)(void *));
 
 #endif
