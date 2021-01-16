@@ -8,7 +8,7 @@ L'objectif de ce projet est de créer un simple shell.
 
 > *Project en collaboration avec <a href="https://github.com/nemu69">Nemuel Page Léonier</a> (<a href="https://profile.intra.42.fr/users/nepage-l">nepage-l</a>).*
 
-![Sujet](https://user-images.githubusercontent.com/45235527/104728925-edd66280-5737-11eb-9730-d3f94be6a5b6.gif)
+![minishell](https://user-images.githubusercontent.com/12557272/104809659-0eadbf00-57ef-11eb-8ba1-b62683dab4a7.gif)
 
 # Partie Obligatoire
 
