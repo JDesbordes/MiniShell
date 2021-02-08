@@ -6,7 +6,7 @@
 
 L'objectif de ce projet est de créer un simple shell.
 
-> *Project en collaboration avec <a href="https://github.com/nemu69">Nemuel Page Léonier</a> (<a href="https://profile.intra.42.fr/users/nepage-l">nepage-l</a>).*
+> *Project en collaboration avec <a href="https://github.com/nemu69">Nemuel Page Léonie</a> (<a href="https://profile.intra.42.fr/users/nepage-l">nepage-l</a>).*
 
 ![minishell](https://user-images.githubusercontent.com/12557272/104809659-0eadbf00-57ef-11eb-8ba1-b62683dab4a7.gif)
 
